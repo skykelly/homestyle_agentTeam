@@ -1,0 +1,172 @@
+[
+  {
+    "rec_id": "rec_9ba52bf5",
+    "target_url": "/category/serums",
+    "opportunity_type": "ranking_boost",
+    "priority": "medium",
+    "problem": "[SEO_002] ranking_boost 감지",
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "evidence": [
+      "콜라겐 세럼"
+    ],
+    "expected_impact": "impact_score=5/5",
+    "confidence_score": 1.0,
+    "risk_level": "high",
+    "effort_score": 2,
+    "impact_score": 5,
+    "owner": "content",
+    "rollback_plan": "콘텐츠 업데이트 이전 버전으로 롤백",
+    "target_query_cluster": "콜라겐 세럼",
+    "current_metrics": {
+      "clicks": 300,
+      "impressions": 15000,
+      "ctr": 0.02,
+      "position": 11.1
+    },
+    "rule_id": "SEO_002",
+    "status": "approved",
+    "approver_notes": "테스트 승인",
+    "rejection_reason": null,
+    "approved_at": "2026-06-29T07:03:17.730501",
+    "rejected_at": null,
+    "experiment_id": "exp_547867bd",
+    "created_at": "2026-06-29T07:03:17.728214",
+    "updated_at": "2026-06-29T07:03:17.731744"
+  },
+  {
+    "rec_id": "rec_bd61d482",
+    "target_url": "/seasonal/summer-skincare",
+    "opportunity_type": "ranking_boost",
+    "priority": "medium",
+    "problem": "[SEO_002] ranking_boost 감지",
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "evidence": [
+      "여름 스킨케어 루틴"
+    ],
+    "expected_impact": "impact_score=5/5",
+    "confidence_score": 1.0,
+    "risk_level": "high",
+    "effort_score": 2,
+    "impact_score": 5,
+    "owner": "content",
+    "rollback_plan": "콘텐츠 업데이트 이전 버전으로 롤백",
+    "target_query_cluster": "여름 스킨케어 루틴",
+    "current_metrics": {
+      "clicks": 200,
+      "impressions": 8000,
+      "ctr": 0.025,
+      "position": 12.1
+    },
+    "rule_id": "SEO_002",
+    "status": "rejected",
+    "approver_notes": null,
+    "rejection_reason": "현재 스프린트 범위 외",
+    "approved_at": null,
+    "rejected_at": "2026-06-29T07:03:17.732002",
+    "experiment_id": null,
+    "created_at": "2026-06-29T07:03:17.728558",
+    "updated_at": "2026-06-29T07:03:17.732055"
+  },
+  {
+    "rec_id": "rec_18edeaf8",
+    "target_url": "/seasonal/spring-skincare",
+    "opportunity_type": "ranking_boost",
+    "priority": "medium",
+    "problem": "[SEO_002] ranking_boost 감지",
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "evidence": [
+      "봄 피부 관리"
+    ],
+    "expected_impact": "impact_score=5/5",
+    "confidence_score": 1.0,
+    "risk_level": "high",
+    "effort_score": 2,
+    "impact_score": 5,
+    "owner": "content",
+    "rollback_plan": "콘텐츠 업데이트 이전 버전으로 롤백",
+    "target_query_cluster": "봄 피부 관리",
+    "current_metrics": {
+      "clicks": 130,
+      "impressions": 6500,
+      "ctr": 0.02,
+      "position": 14.3
+    },
+    "rule_id": "SEO_002",
+    "status": "pending_approval",
+    "approver_notes": null,
+    "rejection_reason": null,
+    "approved_at": null,
+    "rejected_at": null,
+    "experiment_id": null,
+    "created_at": "2026-06-29T07:03:17.728811",
+    "updated_at": "2026-06-29T07:03:17.728813"
+  },
+  {
+    "rec_id": "rec_abce1b75",
+    "target_url": "/faq/collagen-age",
+    "opportunity_type": "ranking_boost",
+    "priority": "medium",
+    "problem": "[SEO_002] ranking_boost 감지",
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "evidence": [
+      "콜라겐 세럼 몇 살부터 써야 해"
+    ],
+    "expected_impact": "impact_score=5/5",
+    "confidence_score": 1.0,
+    "risk_level": "high",
+    "effort_score": 2,
+    "impact_score": 5,
+    "owner": "content",
+    "rollback_plan": "콘텐츠 업데이트 이전 버전으로 롤백",
+    "target_query_cluster": "콜라겐 세럼 몇 살부터 써야 해",
+    "current_metrics": {
+      "clicks": 55,
+      "impressions": 5500,
+      "ctr": 0.01,
+      "position": 15.2
+    },
+    "rule_id": "SEO_002",
+    "status": "pending_approval",
+    "approver_notes": null,
+    "rejection_reason": null,
+    "approved_at": null,
+    "rejected_at": null,
+    "experiment_id": null,
+    "created_at": "2026-06-29T07:03:17.729112",
+    "updated_at": "2026-06-29T07:03:17.729116"
+  },
+  {
+    "rec_id": "rec_95d0dfae",
+    "target_url": "/faq/serum-vs-ampoule",
+    "opportunity_type": "ranking_boost",
+    "priority": "medium",
+    "problem": "[SEO_002] ranking_boost 감지",
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "evidence": [
+      "세럼이랑 앰플 차이"
+    ],
+    "expected_impact": "impact_score=5/5",
+    "confidence_score": 1.0,
+    "risk_level": "high",
+    "effort_score": 2,
+    "impact_score": 5,
+    "owner": "content",
+    "rollback_plan": "콘텐츠 업데이트 이전 버전으로 롤백",
+    "target_query_cluster": "세럼이랑 앰플 차이",
+    "current_metrics": {
+      "clicks": 120,
+      "impressions": 12000,
+      "ctr": 0.01,
+      "position": 13.4
+    },
+    "rule_id": "SEO_002",
+    "status": "pending_approval",
+    "approver_notes": null,
+    "rejection_reason": null,
+    "approved_at": null,
+    "rejected_at": null,
+    "experiment_id": null,
+    "created_at": "2026-06-29T07:03:17.729388",
+    "updated_at": "2026-06-29T07:03:17.729390"
+  }
+]

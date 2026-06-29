@@ -17,6 +17,8 @@ SCHEMA_RECS_FILE = STORE_DIR / "seo_structured_data.json"
 LINK_RECS_FILE = STORE_DIR / "seo_internal_links.json"
 EXPERIMENTS_FILE = STORE_DIR / "seo_experiments.json"
 KNOWLEDGE_FILE = STORE_DIR / "seo_knowledge_items.json"
+RECOMMENDATIONS_FILE = STORE_DIR / "seo_recommendations.json"
+DRAFTS_FILE = STORE_DIR / "seo_content_drafts.json"
 
 
 def _load(path: Path) -> list:
@@ -124,11 +126,74 @@ def list_knowledge_items(source_type: str = "", tag: str = "") -> list[dict]:
     return items
 
 
+# ── Recommendation ───────────────────────────────────────────────────────────
+
+def save_recommendation(rec) -> None:
+    items = _load(RECOMMENDATIONS_FILE)
+    items = [i for i in items if i.get("rec_id") != rec.rec_id]
+    items.append(rec.to_dict())
+    _save(RECOMMENDATIONS_FILE, items)
+
+
+def list_recommendations(status: str = "", priority: str = "") -> list[dict]:
+    items = _load(RECOMMENDATIONS_FILE)
+    if status:
+        items = [i for i in items if i.get("status") == status]
+    if priority:
+        items = [i for i in items if i.get("priority") == priority]
+    return sorted(items, key=lambda x: x.get("impact_score", 0), reverse=True)
+
+
+def get_recommendation(rec_id: str) -> Optional[dict]:
+    return next((i for i in _load(RECOMMENDATIONS_FILE) if i.get("rec_id") == rec_id), None)
+
+
+def update_recommendation_status(rec_id: str, status: str, **kwargs) -> Optional[dict]:
+    """Update status and optional fields (approver_notes, rejection_reason, etc.)."""
+    from datetime import datetime
+    items = _load(RECOMMENDATIONS_FILE)
+    for item in items:
+        if item.get("rec_id") == rec_id:
+            item["status"] = status
+            item["updated_at"] = datetime.now().isoformat()
+            for k, v in kwargs.items():
+                item[k] = v
+            _save(RECOMMENDATIONS_FILE, items)
+            return item
+    return None
+
+
+# ── ContentDraft ──────────────────────────────────────────────────────────────
+
+def save_content_draft(draft) -> None:
+    items = _load(DRAFTS_FILE)
+    items = [i for i in items if i.get("draft_id") != draft.draft_id]
+    items.append(draft.to_dict())
+    _save(DRAFTS_FILE, items)
+
+
+def list_content_drafts(brief_id: str = "", status: str = "") -> list[dict]:
+    items = _load(DRAFTS_FILE)
+    if brief_id:
+        items = [i for i in items if i.get("brief_id") == brief_id]
+    if status:
+        items = [i for i in items if i.get("status") == status]
+    return items
+
+
+def get_content_draft(draft_id: str) -> Optional[dict]:
+    return next((i for i in _load(DRAFTS_FILE) if i.get("draft_id") == draft_id), None)
+
+
 def get_seo_store_summary() -> dict:
+    recs = _load(RECOMMENDATIONS_FILE)
     return {
         "content_briefs": len(_load(BRIEFS_FILE)),
         "schema_recommendations": len(_load(SCHEMA_RECS_FILE)),
         "internal_link_recommendations": len(_load(LINK_RECS_FILE)),
         "experiments": len(_load(EXPERIMENTS_FILE)),
         "knowledge_items": len(_load(KNOWLEDGE_FILE)),
+        "recommendations": len(recs),
+        "pending_approvals": len([r for r in recs if r.get("status") == "pending_approval"]),
+        "content_drafts": len(_load(DRAFTS_FILE)),
     }

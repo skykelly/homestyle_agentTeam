@@ -442,5 +442,32 @@
     },
     "created_at": "2026-06-29T05:52:51.304046",
     "updated_at": "2026-06-29T05:52:51.304049"
+  },
+  {
+    "experiment_id": "exp_547867bd",
+    "target_url": "/category/serums",
+    "change_type": "content_update",
+    "change_description": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "baseline_metrics": {
+      "clicks_28d": 300,
+      "impressions_28d": 15000,
+      "ctr": 0.02,
+      "position": 11.1,
+      "sessions": 4500,
+      "conversions": 225,
+      "revenue_krw": 33750000
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-07-27",
+    "result_metrics": null,
+    "outcome": null,
+    "learning_summary": null,
+    "recommendation_id": "rec_9ba52bf5",
+    "status": "baseline_set",
+    "delta": null,
+    "created_at": "2026-06-29T07:03:17.730915",
+    "updated_at": "2026-06-29T07:03:17.730919"
   }
 ]

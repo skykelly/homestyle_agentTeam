@@ -1041,6 +1041,68 @@ def get_knowledge_items_handler(source_type: str = "", tag: str = "") -> dict:
     }
 
 
+# ── Phase 4-6 ext: Editor / Approval / Governance handlers ───────────────────
+
+def generate_seo_draft_handler(brief_id: str, llm_augment: bool = True) -> dict:
+    from workflows.seo_editor import SEOEditorWorkflow
+    wf = SEOEditorWorkflow(verbose=False)
+    return wf.generate_draft(brief_id=brief_id, llm_augment=llm_augment)
+
+
+def generate_all_drafts_handler(max_briefs: int = 5, llm_augment: bool = False) -> dict:
+    from workflows.seo_editor import SEOEditorWorkflow
+    wf = SEOEditorWorkflow(verbose=False)
+    return wf.generate_drafts_for_pending_briefs(max_briefs=max_briefs, llm_augment=llm_augment)
+
+
+def create_seo_recommendations_handler(max_hits: int = 20) -> dict:
+    from workflows.seo_approval import SEOApprovalWorkflow
+    wf = SEOApprovalWorkflow(verbose=False)
+    return wf.create_recommendations(max_hits=max_hits)
+
+
+def list_pending_recommendations_handler() -> dict:
+    from workflows.seo_approval import SEOApprovalWorkflow
+    wf = SEOApprovalWorkflow(verbose=False)
+    return wf.list_pending()
+
+
+def approve_seo_recommendation_handler(rec_id: str, approver_notes: str = "") -> dict:
+    from workflows.seo_approval import SEOApprovalWorkflow
+    wf = SEOApprovalWorkflow(verbose=False)
+    return wf.approve(rec_id=rec_id, approver_notes=approver_notes)
+
+
+def reject_seo_recommendation_handler(rec_id: str, reason: str = "") -> dict:
+    from workflows.seo_approval import SEOApprovalWorkflow
+    wf = SEOApprovalWorkflow(verbose=False)
+    return wf.reject(rec_id=rec_id, reason=reason)
+
+
+def get_seo_approval_summary_handler() -> dict:
+    from workflows.seo_approval import SEOApprovalWorkflow
+    wf = SEOApprovalWorkflow(verbose=False)
+    return wf.get_approval_summary()
+
+
+def audit_seo_draft_handler(draft_id: str, llm_augment: bool = False) -> dict:
+    from workflows.seo_governance import SEOGovernanceWorkflow
+    wf = SEOGovernanceWorkflow(verbose=False)
+    return wf.audit_draft(draft_id=draft_id, llm_augment=llm_augment)
+
+
+def audit_all_drafts_handler(llm_augment: bool = False) -> dict:
+    from workflows.seo_governance import SEOGovernanceWorkflow
+    wf = SEOGovernanceWorkflow(verbose=False)
+    return wf.audit_all_pending_drafts(llm_augment=llm_augment)
+
+
+def get_governance_summary_handler() -> dict:
+    from workflows.seo_governance import SEOGovernanceWorkflow
+    wf = SEOGovernanceWorkflow(verbose=False)
+    return wf.get_governance_summary()
+
+
 # Dispatch table: tool name -> handler function
 TOOL_HANDLERS = {
     "get_campaign_performance": get_campaign_performance,
@@ -1052,12 +1114,23 @@ TOOL_HANDLERS = {
     "create_campaign_plan": create_campaign_plan,
     "generate_performance_report": generate_performance_report,
     "ab_test_analysis": ab_test_analysis,
-    # Phase 2
+    # Phase 2 (performance marketing)
     "run_diagnosis": run_diagnosis,
     "list_recommendations": list_recommendations_handler,
-    "approve_recommendation": approve_recommendation,
-    "reject_recommendation": reject_recommendation,
-    "get_approval_summary": get_approval_summary,
+    "approve_perf_recommendation": approve_recommendation,
+    "reject_perf_recommendation": reject_recommendation,
+    "get_perf_approval_summary": get_approval_summary,
+    # Phase 4-6 ext: Editor / Approval / Governance
+    "generate_seo_draft": generate_seo_draft_handler,
+    "generate_all_drafts": generate_all_drafts_handler,
+    "create_seo_recommendations": create_seo_recommendations_handler,
+    "list_pending_recommendations": list_pending_recommendations_handler,
+    "approve_recommendation": approve_seo_recommendation_handler,
+    "reject_recommendation": reject_seo_recommendation_handler,
+    "get_approval_summary": get_seo_approval_summary_handler,
+    "audit_seo_draft": audit_seo_draft_handler,
+    "audit_all_drafts": audit_all_drafts_handler,
+    "get_governance_summary": get_governance_summary_handler,
     # Phase 4-6: SEO Advanced
     "run_seo_pipeline": run_seo_pipeline_handler,
     "run_content_briefs": run_content_briefs_handler,

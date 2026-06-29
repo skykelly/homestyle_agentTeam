@@ -428,5 +428,62 @@
     "recommendations_generated": [],
     "error_message": null,
     "output_summary": "SEO 주간 리포트 생성 완료 (2026-06-29)"
+  },
+  {
+    "run_id": "be3034cc-261",
+    "workflow_name": "seo_editor",
+    "trigger": "manual",
+    "input_params": {
+      "brief_id": "brief_ccdc7270",
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:03:17.671006",
+    "completed_at": "2026-06-29T07:03:17.672884",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "draft_1d532ab9"
+    ],
+    "error_message": null,
+    "output_summary": "Draft v1 생성: /skincare/collagen-serum-guide"
+  },
+  {
+    "run_id": "be593a8a-c57",
+    "workflow_name": "seo_approval_create",
+    "trigger": "manual",
+    "input_params": {
+      "max_hits": 5
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:03:17.724279",
+    "completed_at": "2026-06-29T07:03:17.729680",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "rec_9ba52bf5",
+      "rec_bd61d482",
+      "rec_18edeaf8",
+      "rec_abce1b75",
+      "rec_95d0dfae"
+    ],
+    "error_message": null,
+    "output_summary": "5개 신규 추천 생성 (pending_approval)"
+  },
+  {
+    "run_id": "82011974-83a",
+    "workflow_name": "seo_governance",
+    "trigger": "manual",
+    "input_params": {
+      "draft_id": "draft_1d532ab9"
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:03:17.782815",
+    "completed_at": "2026-06-29T07:03:17.786266",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "검수 완료: score=1.00, PASS"
   }
 ]

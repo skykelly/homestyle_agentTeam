@@ -787,6 +787,184 @@ TOOLS = [
             "required": [],
         },
     },
+    # ── Phase 4-6 ext: Editor / Approval / Governance ────────────────────────
+    {
+        "name": "generate_seo_draft",
+        "description": (
+            "ContentBrief를 기반으로 SEO 콘텐츠 수정안(ContentDraft)을 생성합니다. "
+            "title/meta/h1 before→after diff, 섹션별 개선안, FAQ 추가안을 포함합니다. "
+            "생성된 draft는 거버넌스 검수 후 승인 워크플로우로 전달됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "brief_id": {
+                    "type": "string",
+                    "description": "대상 ContentBrief ID (예: brief_abc12345)",
+                },
+                "llm_augment": {
+                    "type": "boolean",
+                    "description": "LLM 보강 여부 (기본값: true)",
+                },
+            },
+            "required": ["brief_id"],
+        },
+    },
+    {
+        "name": "generate_all_drafts",
+        "description": (
+            "draft 상태의 ContentBrief 전체에 대해 수정안을 일괄 생성합니다. "
+            "이미 draft가 있는 brief는 건너뜁니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "max_briefs": {
+                    "type": "integer",
+                    "description": "최대 처리 브리프 수 (기본값: 5)",
+                },
+                "llm_augment": {
+                    "type": "boolean",
+                    "description": "LLM 보강 여부 (기본값: false)",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "create_seo_recommendations",
+        "description": (
+            "룰 엔진 결과를 Recommendation 객체로 변환합니다. "
+            "상태는 pending_approval로 설정되며, 승인자 검토 대기 상태가 됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "max_hits": {
+                    "type": "integer",
+                    "description": "변환할 최대 룰 히트 수 (기본값: 20)",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "list_pending_recommendations",
+        "description": (
+            "승인 대기 중인 SEO 추천 목록을 반환합니다. "
+            "우선순위/URL/유형 기준으로 정렬됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
+    {
+        "name": "approve_recommendation",
+        "description": (
+            "SEO 추천을 승인합니다. "
+            "승인 시 자동으로 SEO 실험 베이스라인이 생성됩니다. "
+            "승인된 추천은 실제 변경 전 ContentDraft 수정이 완료된 후 적용됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "rec_id": {
+                    "type": "string",
+                    "description": "승인할 Recommendation ID (예: rec_abc12345)",
+                },
+                "approver_notes": {
+                    "type": "string",
+                    "description": "승인 사유 또는 주석 (선택사항)",
+                },
+            },
+            "required": ["rec_id"],
+        },
+    },
+    {
+        "name": "reject_recommendation",
+        "description": (
+            "SEO 추천을 거부합니다. "
+            "거부 이유를 기록하여 향후 규칙 개선에 활용합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "rec_id": {
+                    "type": "string",
+                    "description": "거부할 Recommendation ID",
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "거부 이유",
+                },
+            },
+            "required": ["rec_id"],
+        },
+    },
+    {
+        "name": "get_approval_summary",
+        "description": (
+            "SEO 추천 승인 현황 요약을 반환합니다. "
+            "pending/approved/rejected 상태별 건수를 포함합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
+    {
+        "name": "audit_seo_draft",
+        "description": (
+            "ContentDraft에 대해 거버넌스/브랜드 세이프티 검수를 실행합니다. "
+            "과장 표현, 허위 주장, YMYL 위험, 키워드 스터핑, 브랜드 톤 위반 등을 점검합니다. "
+            "brand_safety_score와 governance_flags를 draft에 기록합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "draft_id": {
+                    "type": "string",
+                    "description": "검수할 ContentDraft ID (예: draft_abc12345)",
+                },
+                "llm_augment": {
+                    "type": "boolean",
+                    "description": "LLM 심층 검토 여부 (경계 사례에 추가 검토, 기본값: false)",
+                },
+            },
+            "required": ["draft_id"],
+        },
+    },
+    {
+        "name": "audit_all_drafts",
+        "description": (
+            "검수 대기 중인 모든 ContentDraft에 대해 거버넌스 검수를 일괄 실행합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "llm_augment": {
+                    "type": "boolean",
+                    "description": "LLM 심층 검토 여부 (기본값: false)",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "get_governance_summary",
+        "description": (
+            "전체 ContentDraft 거버넌스 검수 현황을 요약합니다. "
+            "평균 안전 점수, 상태별 건수를 반환합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
     {
         "name": "get_seo_recommendations",
         "description": (

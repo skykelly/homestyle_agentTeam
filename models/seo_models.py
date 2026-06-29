@@ -182,6 +182,114 @@ class SEOExperiment:
 
 
 @dataclass
+class Recommendation:
+    target_url: str
+    opportunity_type: str            # "ctr_improvement" | "ranking_boost" | "content_refresh" | "technical" | "cannibalization"
+    priority: str                    # "critical" | "high" | "medium" | "low"
+    problem: str
+    recommendation: str
+    evidence: list[str]
+    expected_impact: str
+    confidence_score: float          # 0.0 – 1.0
+    risk_level: str                  # "low" | "medium" | "high"
+    effort_score: int                # 1–5
+    impact_score: int                # 1–5
+    owner: str                       # "content" | "dev" | "seo"
+    rollback_plan: str
+    target_query_cluster: Optional[str] = None
+    current_metrics: Optional[dict] = None
+    rule_id: Optional[str] = None
+
+    rec_id: str = field(default_factory=lambda: f"rec_{str(uuid.uuid4())[:8]}")
+    status: str = field(default="pending_approval")  # "pending_approval" | "approved" | "rejected" | "in_progress" | "completed"
+    approver_notes: Optional[str] = None
+    rejection_reason: Optional[str] = None
+    approved_at: Optional[str] = None
+    rejected_at: Optional[str] = None
+    experiment_id: Optional[str] = None
+    created_at: str = field(default_factory=lambda: datetime.now().isoformat())
+    updated_at: str = field(default_factory=lambda: datetime.now().isoformat())
+
+    def to_dict(self) -> dict:
+        return {
+            "rec_id": self.rec_id,
+            "target_url": self.target_url,
+            "opportunity_type": self.opportunity_type,
+            "priority": self.priority,
+            "problem": self.problem,
+            "recommendation": self.recommendation,
+            "evidence": self.evidence,
+            "expected_impact": self.expected_impact,
+            "confidence_score": self.confidence_score,
+            "risk_level": self.risk_level,
+            "effort_score": self.effort_score,
+            "impact_score": self.impact_score,
+            "owner": self.owner,
+            "rollback_plan": self.rollback_plan,
+            "target_query_cluster": self.target_query_cluster,
+            "current_metrics": self.current_metrics,
+            "rule_id": self.rule_id,
+            "status": self.status,
+            "approver_notes": self.approver_notes,
+            "rejection_reason": self.rejection_reason,
+            "approved_at": self.approved_at,
+            "rejected_at": self.rejected_at,
+            "experiment_id": self.experiment_id,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }
+
+
+@dataclass
+class ContentDraft:
+    brief_id: str
+    target_url: str
+    version: int
+
+    # Generated content
+    title_before: str
+    title_after: str
+    meta_before: str
+    meta_after: str
+    h1_before: str
+    h1_after: str
+    section_rewrites: list[dict]     # [{"section": str, "before": str, "after": str, "reason": str}]
+    faq_additions: list[dict]        # [{"question": str, "answer": str}]
+    quality_score: float             # 0.0 – 1.0
+    brand_safety_score: float        # 0.0 – 1.0 (set by governance agent)
+    governance_flags: list[str]      # issues found by governance agent
+    diff_summary: str
+
+    draft_id: str = field(default_factory=lambda: f"draft_{str(uuid.uuid4())[:8]}")
+    status: str = field(default="draft")  # "draft" | "governance_checked" | "pending_approval" | "approved" | "rejected"
+    recommendation_id: Optional[str] = None
+    created_at: str = field(default_factory=lambda: datetime.now().isoformat())
+
+    def to_dict(self) -> dict:
+        return {
+            "draft_id": self.draft_id,
+            "brief_id": self.brief_id,
+            "target_url": self.target_url,
+            "version": self.version,
+            "title_before": self.title_before,
+            "title_after": self.title_after,
+            "meta_before": self.meta_before,
+            "meta_after": self.meta_after,
+            "h1_before": self.h1_before,
+            "h1_after": self.h1_after,
+            "section_rewrites": self.section_rewrites,
+            "faq_additions": self.faq_additions,
+            "quality_score": self.quality_score,
+            "brand_safety_score": self.brand_safety_score,
+            "governance_flags": self.governance_flags,
+            "diff_summary": self.diff_summary,
+            "status": self.status,
+            "recommendation_id": self.recommendation_id,
+            "created_at": self.created_at,
+        }
+
+
+@dataclass
 class KnowledgeItem:
     source_type: str                # "experiment" | "rule_hit" | "llm_insight" | "manual"
     title: str
