@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>뷰티랩 SEO 대시보드</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --card: #22263a;
+      --border: #2e3250;
+      --accent: #6c8ef5;
+      --accent2: #a78bfa;
+      --green: #34d399;
+      --red: #f87171;
+      --yellow: #fbbf24;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --font: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .logo { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .logo span { font-size: 1.5rem; }
+    .badge { font-size: 0.7rem; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 99px; font-weight: 600; }
+    .updated { font-size: 0.78rem; color: var(--muted); }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 32px 24px; }
+
+    /* KPI row */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .kpi {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 18px;
+    }
+    .kpi-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+    .kpi-value { font-size: 1.8rem; font-weight: 700; line-height: 1; }
+    .kpi-delta { font-size: 0.78rem; margin-top: 6px; }
+    .up { color: var(--green); }
+    .down { color: var(--red); }
+    .neutral { color: var(--muted); }
+
+    /* Grid layout */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    @media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+    }
+    .card h2 { font-size: 0.9rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px; }
+    .chart-wrap { position: relative; height: 220px; }
+
+    /* Table */
+    .tbl { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .tbl th { color: var(--muted); font-weight: 600; text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border); font-size: 0.73rem; text-transform: uppercase; letter-spacing: .04em; }
+    .tbl td { padding: 9px 10px; border-bottom: 1px solid #1e2135; vertical-align: top; }
+    .tbl tr:last-child td { border-bottom: none; }
+    .tbl tr:hover td { background: rgba(108,142,245,.05); }
+
+    /* Priority badges */
+    .p-critical { color: var(--red); font-weight: 700; }
+    .p-high { color: var(--yellow); font-weight: 600; }
+    .p-medium { color: var(--accent); }
+    .p-low { color: var(--green); }
+
+    /* Tag chips */
+    .chip { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.7rem; font-weight: 600; }
+    .chip-blue { background: rgba(108,142,245,.2); color: var(--accent); }
+    .chip-purple { background: rgba(167,139,250,.2); color: var(--accent2); }
+    .chip-green { background: rgba(52,211,153,.15); color: var(--green); }
+    .chip-red { background: rgba(248,113,113,.15); color: var(--red); }
+    .chip-yellow { background: rgba(251,191,36,.15); color: var(--yellow); }
+
+    /* Donut legend */
+    .legend { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* Progress bar */
+    .progress-wrap { margin-bottom: 14px; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
+    .progress-bar { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 99px; }
+
+    /* Experiment card */
+    .exp-card { padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .exp-card:last-child { border-bottom: none; }
+    .exp-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+    .exp-meta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 12px; }
+
+    footer { text-align: center; padding: 40px 24px 24px; color: var(--muted); font-size: 0.78rem; }
+    a { color: var(--accent); }
+
+    .loading { text-align: center; padding: 80px; color: var(--muted); font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span>💄</span> 뷰티랩 SEO 대시보드 <span class="badge">LIVE</span>
+  </div>
+  <div class="updated" id="updated-at">불러오는 중...</div>
+</header>
+
+<div class="container" id="app">
+  <div class="loading">데이터 로딩 중...</div>
+</div>
+
+<footer>
+  뷰티랩(BeautyLab) SEO Agent One · Phase 3-6 &nbsp;·&nbsp;
+  <a href="https://github.com/skykelly/homestyle_agentTeam" target="_blank">GitHub</a>
+</footer>
+
+<script>
+// ── load data ──────────────────────────────────────────────────────────────
+const BASE = './data/';
+const files = ['seo_summary.json','seo_issues.json','seo_briefs.json',
+                'seo_schema.json','seo_links.json','seo_experiments.json',
+                'seo_knowledge.json'];
+
+async function loadJSON(name) {
+  try {
+    const r = await fetch(BASE + name + '?v=' + Date.now());
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
+async function main() {
+  const [summary, issues, briefs, schema, links, experiments, knowledge] = await Promise.all(
+    files.map(f => loadJSON(f))
+  );
+
+  if (!summary) {
+    document.getElementById('app').innerHTML =
+      '<div class="loading">⚠️ 데이터 파일을 찾을 수 없습니다. GitHub Actions가 먼저 실행되어야 합니다.</div>';
+    return;
+  }
+
+  document.getElementById('updated-at').textContent =
+    '마지막 업데이트: ' + (summary.generated_at || '').replace('T', ' ').slice(0, 16);
+
+  renderKPI(summary);
+  renderCharts(summary, issues);
+  renderIssues(issues);
+  renderBriefs(briefs);
+  renderSchema(schema);
+  renderLinks(links);
+  renderExperiments(experiments, knowledge);
+}
+
+// ── KPI ───────────────────────────────────────────────────────────────────
+function renderKPI(s) {
+  const kpis = [
+    { label: '총 클릭 (28일)', value: fmt(s.total_clicks), delta: s.clicks_delta_pct, unit: '%' },
+    { label: '평균 포지션', value: s.avg_position?.toFixed(1), delta: -(s.position_delta || 0), unit: ' 순위', inv: true },
+    { label: '평균 CTR', value: (s.avg_ctr * 100).toFixed(1) + '%', delta: s.ctr_delta_pct, unit: '%' },
+    { label: '오가닉 매출', value: '₩' + fmtM(s.revenue_krw), delta: s.revenue_delta_pct, unit: '%' },
+    { label: 'SEO 이슈', value: s.total_issues, delta: null },
+    { label: '콘텐츠 브리프', value: s.content_briefs, delta: null },
+    { label: '실험 진행', value: s.experiments_active, delta: null },
+  ];
+
+  const html = kpis.map(k => {
+    let deltaHtml = '';
+    if (k.delta !== null && k.delta !== undefined) {
+      const cls = k.delta > 0 ? 'up' : k.delta < 0 ? 'down' : 'neutral';
+      const sign = k.delta > 0 ? '▲' : k.delta < 0 ? '▼' : '–';
+      deltaHtml = `<div class="kpi-delta ${cls}">${sign} ${Math.abs(k.delta).toFixed(1)}${k.unit || ''}</div>`;
+    }
+    return `<div class="kpi"><div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value ?? '—'}</div>${deltaHtml}</div>`;
+  }).join('');
+
+  document.getElementById('app').innerHTML = `<div class="kpi-grid">${html}</div><div id="charts"></div>`;
+  renderBody(s, issues);
+}
+
+function renderBody(summary, issues) {
+  // placeholder; real rendering fills #charts via renderCharts
+}
+
+// ── Charts ────────────────────────────────────────────────────────────────
+function renderCharts(summary, issues) {
+  const ISSUE_COLORS = ['#f87171','#fbbf24','#6c8ef5','#34d399'];
+  const ISSUE_LABELS = ['CRITICAL','HIGH','MEDIUM','LOW'];
+  const breakdown = summary.priority_breakdown || {};
+  const counts = ISSUE_LABELS.map(l => breakdown[l.toLowerCase()] || 0);
+
+  const legendHtml = ISSUE_LABELS.map((l, i) =>
+    `<div class="legend-item"><div class="legend-dot" style="background:${ISSUE_COLORS[i]}"></div><span>${l}: ${counts[i]}</span></div>`
+  ).join('');
+
+  const topOpps = (summary.top_opportunities || []).slice(0, 5);
+
+  document.getElementById('charts').innerHTML = `
+  <div class="grid-2">
+    <div class="card">
+      <h2>이슈 우선순위 분포</h2>
+      <div style="display:flex;align-items:center;gap:24px">
+        <div class="chart-wrap" style="flex:1;max-width:200px"><canvas id="chart-donut"></canvas></div>
+        <div class="legend">${legendHtml}</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>스키마 추천 — Impact × Effort</h2>
+      <div class="chart-wrap"><canvas id="chart-schema"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2" id="lower-charts">
+    <div class="card">
+      <h2>상위 기회 — 예상 임팩트</h2>
+      <div class="chart-wrap"><canvas id="chart-opps"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>클릭 추이 (모의 28일)</h2>
+      <div class="chart-wrap"><canvas id="chart-clicks"></canvas></div>
+    </div>
+  </div>
+  <div id="tables"></div>`;
+
+  // Donut
+  new Chart(document.getElementById('chart-donut'), {
+    type: 'doughnut',
+    data: { labels: ISSUE_LABELS, datasets: [{ data: counts, backgroundColor: ISSUE_COLORS, borderWidth: 0 }] },
+    options: { plugins: { legend: { display: false } }, cutout: '70%' }
+  });
+
+  // Schema bar
+  const schemaData = summary.schema_by_type || {};
+  new Chart(document.getElementById('chart-schema'), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(schemaData),
+      datasets: [{
+        label: '추천 수',
+        data: Object.values(schemaData),
+        backgroundColor: '#6c8ef5cc',
+        borderRadius: 6,
+      }]
+    },
+    options: { ...darkChart(), plugins: { legend: { display: false } } }
+  });
+
+  // Top opps horizontal bar
+  new Chart(document.getElementById('chart-opps'), {
+    type: 'bar',
+    data: {
+      labels: topOpps.map(o => (o.target_url || '').split('/').pop()),
+      datasets: [{
+        label: '임팩트 스코어',
+        data: topOpps.map(o => o.impact_score || 3),
+        backgroundColor: '#a78bfa99',
+        borderRadius: 6,
+      }]
+    },
+    options: { ...darkChart(), indexAxis: 'y', plugins: { legend: { display: false } } }
+  });
+
+  // Mock click trend line
+  const days = Array.from({length: 28}, (_, i) => `D-${27-i}`).filter((_, i) => i % 4 === 0);
+  const clicksBase = summary.total_clicks || 18500;
+  const trend = Array.from({length: 7}, (_, i) => Math.round(clicksBase / 7 * (0.85 + i * 0.05)));
+  new Chart(document.getElementById('chart-clicks'), {
+    type: 'line',
+    data: {
+      labels: days,
+      datasets: [{
+        label: '클릭',
+        data: trend,
+        borderColor: '#34d399',
+        backgroundColor: 'rgba(52,211,153,0.1)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: 3,
+      }]
+    },
+    options: { ...darkChart(), plugins: { legend: { display: false } } }
+  });
+}
+
+function darkChart() {
+  return {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { color: '#2e3250' } },
+      y: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { color: '#2e3250' } }
+    }
+  };
+}
+
+// ── Issues table ──────────────────────────────────────────────────────────
+function renderIssues(issues) {
+  const rows = (issues || []).slice(0, 15);
+  const priClass = p => ({'critical':'p-critical','high':'p-high','medium':'p-medium','low':'p-low'}[p?.toLowerCase()] || '');
+  const priIcon  = p => ({'critical':'🔴','high':'🟡','medium':'🔵','low':'🟢'}[p?.toLowerCase()] || '');
+  const typeChip = t => {
+    const map = {
+      'ctr_improvement': ['blue', 'CTR 개선'],
+      'ranking_boost':   ['purple', 'Page2→1'],
+      'content_refresh': ['yellow', '콘텐츠 리프레시'],
+      'technical':       ['red', '기술 이슈'],
+      'cannibalization': ['red', '카니발라이제이션'],
+      'geo_candidate':   ['green', 'GEO 후보'],
+    };
+    const [color, label] = map[t] || ['blue', t];
+    return `<span class="chip chip-${color}">${label}</span>`;
+  };
+
+  const table = `
+  <div class="card" style="margin-bottom:24px">
+    <h2>SEO 이슈 목록 (상위 15건)</h2>
+    <table class="tbl">
+      <thead><tr>
+        <th>우선순위</th><th>유형</th><th>URL</th><th>추천 조치</th>
+      </tr></thead>
+      <tbody>
+        ${rows.map(r => `<tr>
+          <td class="${priClass(r.priority)}">${priIcon(r.priority)} ${(r.priority||'').toUpperCase()}</td>
+          <td>${typeChip(r.opportunity_type)}</td>
+          <td style="font-size:.78rem;color:#8892a4">${r.target_url || ''}</td>
+          <td style="font-size:.8rem">${(r.recommendation || '').slice(0, 80)}${r.recommendation?.length > 80 ? '…' : ''}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+
+  document.getElementById('tables').insertAdjacentHTML('beforeend', table);
+  renderBriefs2();
+}
+
+// ── Content Briefs ────────────────────────────────────────────────────────
+let _briefs, _schema, _links, _experiments, _knowledge;
+function renderBriefs(b) { _briefs = b; }
+function renderSchema(s) { _schema = s; }
+function renderLinks(l) { _links = l; }
+function renderExperiments(e, k) { _experiments = e; _knowledge = k; renderBriefs2(); }
+
+function renderBriefs2() {
+  if (!document.getElementById('tables')) return;
+
+  const briefs = (_briefs || []).slice(0, 5);
+  const schema = (_schema || []).slice(0, 5);
+  const links = (_links || []).slice(0, 8);
+  const exps = (_experiments || []).slice(0, 5);
+  const knowledge = (_knowledge || []).slice(0, 4);
+
+  const intentBadge = i => {
+    const m = { informational: ['blue','정보성'], commercial: ['purple','구매 탐색'], transactional: ['green','전환'], commercial_investigation: ['purple','구매 탐색'], mixed: ['yellow','복합'] };
+    const [c, l] = m[i] || ['blue', i];
+    return `<span class="chip chip-${c}">${l}</span>`;
+  };
+  const outcomeChip = o => {
+    const m = { success: ['green','성공'], neutral: ['yellow','중립'], regression: ['red','퇴보'] };
+    const [c, l] = m[o] || ['blue', o || '진행중'];
+    return `<span class="chip chip-${c}">${l}</span>`;
+  };
+
+  const html = `
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="card">
+      <h2>콘텐츠 브리프 큐</h2>
+      <table class="tbl">
+        <thead><tr><th>URL</th><th>검색 의도</th><th>섹션</th><th>FAQ</th></tr></thead>
+        <tbody>
+          ${briefs.map(b => `<tr>
+            <td style="font-size:.78rem;color:#8892a4">${b.target_url}</td>
+            <td>${intentBadge(b.search_intent)}</td>
+            <td>${b.recommended_sections?.length || 0}</td>
+            <td>${b.faq_items?.length || 0}</td>
+          </tr>`).join('') || '<tr><td colspan="4" style="color:var(--muted)">데이터 없음</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>구조화 데이터 추천</h2>
+      <table class="tbl">
+        <thead><tr><th>스키마</th><th>URL</th><th>임팩트</th><th>노력</th></tr></thead>
+        <tbody>
+          ${schema.map(s => `<tr>
+            <td><span class="chip chip-purple">${s.schema_type}</span></td>
+            <td style="font-size:.78rem;color:#8892a4">${s.target_url}</td>
+            <td>${'★'.repeat(s.impact_score || 1)}${'☆'.repeat(5-(s.impact_score||1))}</td>
+            <td>${'●'.repeat(s.effort_score || 1)}${'○'.repeat(5-(s.effort_score||1))}</td>
+          </tr>`).join('') || '<tr><td colspan="4" style="color:var(--muted)">데이터 없음</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="card">
+      <h2>내부 링크 추천</h2>
+      <table class="tbl">
+        <thead><tr><th>유형</th><th>소스</th><th>타겟</th><th>앵커</th></tr></thead>
+        <tbody>
+          ${links.map(l => {
+            const typeMap = { hub_to_spoke: ['blue','허브→스포크'], spoke_to_hub: ['purple','스포크→허브'], cross_link: ['green','크로스'], orphan_rescue: ['red','고아 구조'] };
+            const [c, label] = typeMap[l.link_type] || ['blue', l.link_type];
+            return `<tr>
+              <td><span class="chip chip-${c}">${label}</span></td>
+              <td style="font-size:.72rem;color:#8892a4">${l.source_url?.split('/').pop()}</td>
+              <td style="font-size:.72rem;color:#8892a4">${l.target_url?.split('/').pop()}</td>
+              <td style="font-size:.75rem">${(l.anchor_text||'').slice(0,20)}…</td>
+            </tr>`;
+          }).join('') || '<tr><td colspan="4" style="color:var(--muted)">데이터 없음</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>SEO 실험 현황</h2>
+      ${exps.length === 0
+        ? '<p style="color:var(--muted);font-size:.85rem">실험 데이터 없음</p>'
+        : exps.map(e => `<div class="exp-card">
+            <div class="exp-title">${e.target_url}</div>
+            <div class="exp-meta">
+              <span class="chip chip-blue">${e.change_type}</span>
+              ${outcomeChip(e.outcome)}
+              <span>${e.experiment_start_date || ''}</span>
+            </div>
+          </div>`).join('')
+      }
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px">
+    <h2>Knowledge Base (최근 인사이트)</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:8px">
+      ${knowledge.map(k => `<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px">
+        <div style="font-size:.8rem;font-weight:600;margin-bottom:6px">${k.title}</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.5">${(k.summary||'').slice(0, 120)}…</div>
+        <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">
+          ${(k.tags||[]).slice(0,3).map(t => `<span class="chip chip-blue">${t}</span>`).join('')}
+        </div>
+      </div>`).join('') || '<p style="color:var(--muted);font-size:.85rem">데이터 없음</p>'}
+    </div>
+  </div>`;
+
+  document.getElementById('tables').insertAdjacentHTML('beforeend', html);
+}
+
+// ── helpers ───────────────────────────────────────────────────────────────
+function fmt(n) { return (n||0).toLocaleString('ko-KR'); }
+function fmtM(n) { return n >= 1e8 ? (n/1e8).toFixed(0) + '억' : n >= 1e4 ? (n/1e4).toFixed(0) + '만' : String(n); }
+
+main();
+</script>
+</body>
+</html>

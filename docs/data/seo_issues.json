@@ -1,0 +1,371 @@
+[
+  {
+    "rule_id": "SEO_004",
+    "opportunity_type": "cannibalization_fix",
+    "priority": "critical",
+    "target_url": "/product/collagen-serum-50ml",
+    "target_queries": [
+      "콜라겐 세럼"
+    ],
+    "recommendation": "'/product/collagen-serum-50ml'를 정규 URL로 설정. 나머지 URL은 canonical 태그 추가 또는 301 리다이렉트. 내부 링크를 정규 URL 중심으로 통합.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/skincare/collagen-serum-guide",
+    "target_queries": [
+      "콜라겐 세럼 추천"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 6.0% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/skincare/hyaluronic-acid",
+    "target_queries": [
+      "히알루론산 세럼 효과"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 5.0% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/skincare/retinol-guide",
+    "target_queries": [
+      "레티놀 세럼 부작용"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 4.0% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/ingredients/niacinamide",
+    "target_queries": [
+      "나이아신아마이드 효능"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 3.4% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/skincare/routine-guide",
+    "target_queries": [
+      "세럼 바르는 순서"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 3.0% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/reviews/beautylab-serum",
+    "target_queries": [
+      "뷰티랩 세럼 후기"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 11.0% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/product/collagen-serum-50ml",
+    "target_queries": [
+      "콜라겐 세럼"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 11.0% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/category/serums",
+    "target_queries": [
+      "콜라겐 세럼"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/seasonal/summer-skincare",
+    "target_queries": [
+      "여름 스킨케어 루틴"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/seasonal/spring-skincare",
+    "target_queries": [
+      "봄 피부 관리"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/faq/collagen-age",
+    "target_queries": [
+      "콜라겐 세럼 몇 살부터 써야 해"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 2.6% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/faq/collagen-age",
+    "target_queries": [
+      "콜라겐 세럼 몇 살부터 써야 해"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/faq/serum-vs-ampoule",
+    "target_queries": [
+      "세럼이랑 앰플 차이"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 2.6% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/faq/serum-vs-ampoule",
+    "target_queries": [
+      "세럼이랑 앰플 차이"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/faq/hyaluronic-daily",
+    "target_queries": [
+      "히알루론산 매일 써도 되나요"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 2.6% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/faq/hyaluronic-daily",
+    "target_queries": [
+      "히알루론산 매일 써도 되나요"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/faq/retinol-beginners",
+    "target_queries": [
+      "레티놀 처음 쓸 때 주의사항"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 2.6% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/faq/retinol-beginners",
+    "target_queries": [
+      "레티놀 처음 쓸 때 주의사항"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/skincare/routine-guide",
+    "target_queries": [
+      "스킨케어 순서 어떻게 해야 하나요"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_001",
+    "opportunity_type": "ctr_improvement",
+    "priority": "high",
+    "target_url": "/faq/collagen-timeline",
+    "target_queries": [
+      "콜라겐 세럼 효과 얼마나 걸려"
+    ],
+    "recommendation": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 2.6% 수준으로 향상.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_002",
+    "opportunity_type": "ranking_boost",
+    "priority": "high",
+    "target_url": "/faq/collagen-timeline",
+    "target_queries": [
+      "콜라겐 세럼 효과 얼마나 걸려"
+    ],
+    "recommendation": "콘텐츠 depth 강화, 내부 링크 추가, E-E-A-T 신호 개선으로 1페이지 진입 추진.",
+    "impact_score": 5
+  },
+  {
+    "rule_id": "SEO_003",
+    "opportunity_type": "content_refresh",
+    "priority": "high",
+    "target_url": "/seasonal/summer-skincare",
+    "target_queries": [],
+    "recommendation": "최신 데이터·트렌드 반영하여 콘텐츠 업데이트. 제목 태그 개선 및 내부 링크 보강.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_003",
+    "opportunity_type": "content_refresh",
+    "priority": "high",
+    "target_url": "/seasonal/spring-skincare",
+    "target_queries": [],
+    "recommendation": "최신 데이터·트렌드 반영하여 콘텐츠 업데이트. 제목 태그 개선 및 내부 링크 보강.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_005d",
+    "opportunity_type": "technical_fix",
+    "priority": "high",
+    "target_url": "/product/collagen-serum-50ml",
+    "target_queries": [],
+    "recommendation": "Product+Offer JSON-LD 스키마 마크업 추가.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_005a",
+    "opportunity_type": "technical_fix",
+    "priority": "high",
+    "target_url": "/old-collagen-guide",
+    "target_queries": [],
+    "recommendation": "사이트맵에서 리다이렉트 URL 제거. 최종 목적지 URL을 사이트맵에 등록.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_006",
+    "opportunity_type": "geo_candidate",
+    "priority": "medium",
+    "target_url": "/faq/serum-vs-ampoule",
+    "target_queries": [
+      "세럼이랑 앰플 차이"
+    ],
+    "recommendation": "FAQ 스키마 추가 및 직접 답변형 콘텐츠 구조화. 첫 단락에 간결한 정의·답변 배치 (Answer Engine Optimization). 비교형 쿼리는 구조화된 비교 테이블 추가.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_006",
+    "opportunity_type": "geo_candidate",
+    "priority": "medium",
+    "target_url": "/faq/hyaluronic-daily",
+    "target_queries": [
+      "히알루론산 매일 써도 되나요"
+    ],
+    "recommendation": "FAQ 스키마 추가 및 직접 답변형 콘텐츠 구조화. 첫 단락에 간결한 정의·답변 배치 (Answer Engine Optimization). 비교형 쿼리는 구조화된 비교 테이블 추가.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_006",
+    "opportunity_type": "geo_candidate",
+    "priority": "medium",
+    "target_url": "/comparison/beautylab-vs-sulwhasoo",
+    "target_queries": [
+      "뷰티랩 vs 설화수 세럼 비교"
+    ],
+    "recommendation": "FAQ 스키마 추가 및 직접 답변형 콘텐츠 구조화. 첫 단락에 간결한 정의·답변 배치 (Answer Engine Optimization). 비교형 쿼리는 구조화된 비교 테이블 추가.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_006",
+    "opportunity_type": "geo_candidate",
+    "priority": "medium",
+    "target_url": "/skincare/routine-guide",
+    "target_queries": [
+      "스킨케어 순서 어떻게 해야 하나요"
+    ],
+    "recommendation": "FAQ 스키마 추가 및 직접 답변형 콘텐츠 구조화. 첫 단락에 간결한 정의·답변 배치 (Answer Engine Optimization). 비교형 쿼리는 구조화된 비교 테이블 추가.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_006",
+    "opportunity_type": "geo_candidate",
+    "priority": "medium",
+    "target_url": "/faq/collagen-timeline",
+    "target_queries": [
+      "콜라겐 세럼 효과 얼마나 걸려"
+    ],
+    "recommendation": "FAQ 스키마 추가 및 직접 답변형 콘텐츠 구조화. 첫 단락에 간결한 정의·답변 배치 (Answer Engine Optimization). 비교형 쿼리는 구조화된 비교 테이블 추가.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_005c",
+    "opportunity_type": "technical_fix",
+    "priority": "medium",
+    "target_url": "/skincare/collagen-serum-guide",
+    "target_queries": [],
+    "recommendation": "클릭을 유도하는 150-160자 메타 설명 작성. 핵심 키워드 + CTA 포함.",
+    "impact_score": 3
+  },
+  {
+    "rule_id": "SEO_005d",
+    "opportunity_type": "technical_fix",
+    "priority": "medium",
+    "target_url": "/faq/serum-vs-ampoule",
+    "target_queries": [],
+    "recommendation": "FAQPage JSON-LD 스키마 마크업 추가.",
+    "impact_score": 4
+  },
+  {
+    "rule_id": "SEO_005e",
+    "opportunity_type": "technical_fix",
+    "priority": "medium",
+    "target_url": "/faq/serum-vs-ampoule",
+    "target_queries": [],
+    "recommendation": "사이트맵에 해당 URL 추가 및 Google Search Console에 사이트맵 재제출.",
+    "impact_score": 2
+  },
+  {
+    "rule_id": "SEO_005b",
+    "opportunity_type": "technical_fix",
+    "priority": "medium",
+    "target_url": "/category/serums",
+    "target_queries": [],
+    "recommendation": "주요 타겟 키워드를 포함한 H1 태그 추가.",
+    "impact_score": 3
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-06-29T06:47:54.241331",
+  "site_url": "https://beautylab.co.kr",
+  "total_clicks": 12667,
+  "total_impressions": 343800,
+  "avg_ctr": 0.0368,
+  "avg_position": 9.7,
+  "revenue_krw": 220500000,
+  "clicks_delta_pct": -42.7,
+  "revenue_delta_pct": -16.8,
+  "ctr_delta_pct": -35.4,
+  "position_delta": 2.6,
+  "total_issues": 35,
+  "priority_breakdown": {
+    "critical": 1,
+    "high": 25,
+    "medium": 9
+  },
+  "content_briefs": 9,
+  "schema_recommendations": 15,
+  "internal_link_recommendations": 63,
+  "experiments_active": 0,
+  "knowledge_items": 14,
+  "schema_by_type": {
+    "Product": 3,
+    "Article": 6,
+    "FAQPage": 3,
+    "CollectionPage": 3
+  },
+  "top_opportunities": [
+    {
+      "target_url": "/category/serums",
+      "opportunity_type": "ranking_boost",
+      "impact_score": 5
+    },
+    {
+      "target_url": "/seasonal/summer-skincare",
+      "opportunity_type": "ranking_boost",
+      "impact_score": 5
+    },
+    {
+      "target_url": "/seasonal/spring-skincare",
+      "opportunity_type": "ranking_boost",
+      "impact_score": 5
+    },
+    {
+      "target_url": "/faq/collagen-age",
+      "opportunity_type": "ranking_boost",
+      "impact_score": 5
+    },
+    {
+      "target_url": "/faq/serum-vs-ampoule",
+      "opportunity_type": "ranking_boost",
+      "impact_score": 5
+    }
+  ]
+}
