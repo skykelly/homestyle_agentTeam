@@ -606,5 +606,39 @@
     "recommendations_generated": [],
     "error_message": null,
     "output_summary": "SEO 주간 리포트 생성 완료 (2026-06-29)"
+  },
+  {
+    "run_id": "a09aff14-aa8",
+    "workflow_name": "keyword_agent",
+    "trigger": "manual",
+    "input_params": {
+      "min_impressions": 100,
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:23:52.233554",
+    "completed_at": "2026-06-29T07:23:52.235968",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "클러스터 13개 분석 | 갭 12개 | 데이터 소스: mock"
+  },
+  {
+    "run_id": "c2b74ddb-887",
+    "workflow_name": "keyword_agent",
+    "trigger": "manual",
+    "input_params": {
+      "min_impressions": 200,
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:24:06.054562",
+    "completed_at": "2026-06-29T07:24:06.060826",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "클러스터 13개 분석 | 갭 12개 | 데이터 소스: mock"
   }
 ]

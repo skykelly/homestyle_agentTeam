@@ -88,6 +88,11 @@ def list_recommendations(
 # ---------------------------------------------------------------------------
 
 def save_agent_run(run: AgentRun) -> None:
+    from config.feature_flags import is_enabled
+    if is_enabled("USE_SQLITE"):
+        from storage.db import upsert_agent_run
+        upsert_agent_run(run.to_dict())
+        return
     with _LOCK:
         runs = _load(AGENT_RUNS_FILE)
         for i, r in enumerate(runs):
@@ -100,6 +105,10 @@ def save_agent_run(run: AgentRun) -> None:
 
 
 def get_agent_run(run_id: str) -> Optional[dict]:
+    from config.feature_flags import is_enabled
+    if is_enabled("USE_SQLITE"):
+        rows = __import__("storage.db", fromlist=["get_agent_runs"]).get_agent_runs()
+        return next((r for r in rows if r["run_id"] == run_id), None)
     for r in _load(AGENT_RUNS_FILE):
         if r["run_id"] == run_id:
             return r
@@ -107,6 +116,10 @@ def get_agent_run(run_id: str) -> Optional[dict]:
 
 
 def list_agent_runs(workflow_name: Optional[str] = None, limit: int = 20) -> list:
+    from config.feature_flags import is_enabled
+    if is_enabled("USE_SQLITE"):
+        from storage.db import get_agent_runs
+        return get_agent_runs(workflow_name=workflow_name, limit=limit)
     runs = _load(AGENT_RUNS_FILE)
     if workflow_name:
         runs = [r for r in runs if r["workflow_name"] == workflow_name]

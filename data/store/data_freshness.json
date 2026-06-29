@@ -1,0 +1,25 @@
+{
+  "naver_ads": {
+    "last_refresh": "2026-06-29T07:24:12.198240",
+    "source": "mock",
+    "row_count": 9
+  },
+  "kakao": {
+    "last_refresh": "2026-06-29T07:24:12.203644",
+    "source": "mock",
+    "row_count": 6
+  },
+  "google_ads": {
+    "last_refresh": "2026-06-29T07:24:12.208194",
+    "source": "mock",
+    "row_count": 9
+  },
+  "gsc": {
+    "last_refresh": "2026-06-29T07:24:12.208256",
+    "mode": "mock"
+  },
+  "ga4": {
+    "last_refresh": "2026-06-29T07:24:12.208273",
+    "mode": "mock"
+  }
+}

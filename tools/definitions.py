@@ -994,4 +994,134 @@ TOOLS = [
             "required": [],
         },
     },
+    # ── Keyword & Query Agent (Phase 3) ──────────────────────────────────────
+    {
+        "name": "analyze_keyword_clusters",
+        "description": (
+            "GSC 쿼리 데이터를 클러스터링하여 키워드 기회를 분석합니다. "
+            "검색 의도 분류, CTR 갭 키워드, 우선순위 클러스터를 반환합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "min_impressions": {
+                    "type": "integer",
+                    "description": "분석 대상 최소 노출수 (기본값 100)",
+                    "default": 100,
+                },
+                "gap_ctr_threshold": {
+                    "type": "number",
+                    "description": "갭 키워드 판별 CTR 임계값 (기본값 0.02 = 2%)",
+                    "default": 0.02,
+                },
+                "llm_augment": {
+                    "type": "boolean",
+                    "description": "LLM 인사이트 추가 여부",
+                    "default": False,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "get_keyword_gaps",
+        "description": (
+            "노출수는 높지만 CTR이 낮은 키워드 갭을 반환합니다. "
+            "제목/메타 개선 또는 신규 콘텐츠가 필요한 쿼리를 우선순위별로 정리합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "min_impressions": {
+                    "type": "integer",
+                    "description": "최소 노출수 (기본값 200)",
+                    "default": 200,
+                },
+                "max_ctr": {
+                    "type": "number",
+                    "description": "최대 CTR 필터 (기본값 0.02)",
+                    "default": 0.02,
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "최대 반환 건수 (기본값 20)",
+                    "default": 20,
+                },
+            },
+            "required": [],
+        },
+    },
+    # ── Data Ingestion Agent (Phase 3) ────────────────────────────────────────
+    {
+        "name": "get_connector_status",
+        "description": (
+            "모든 데이터 커넥터(GSC, GA4, 네이버, 카카오, 구글 광고)의 "
+            "연결 상태와 실API/목 데이터 사용 여부를 확인합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
+    {
+        "name": "refresh_data_connectors",
+        "description": (
+            "모든 광고 커넥터에서 데이터를 수집합니다. "
+            "USE_SQLITE=true이면 SQLite daily_metrics 테이블에 저장됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "days": {
+                    "type": "integer",
+                    "description": "수집할 일수 (기본값 28)",
+                    "default": 28,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "get_data_freshness",
+        "description": "각 커넥터의 마지막 데이터 수집 시각과 신선도 상태를 반환합니다.",
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
+    {
+        "name": "get_daily_metrics_summary",
+        "description": (
+            "일별 광고 성과 요약을 반환합니다. "
+            "USE_SQLITE=true이면 SQLite에서 조회하고, 아니면 목 데이터를 사용합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "platform": {
+                    "type": "string",
+                    "description": "플랫폼 필터 (naver_search/kakao/google_ads, 빈값=전체)",
+                    "default": "",
+                },
+                "days": {
+                    "type": "integer",
+                    "description": "조회 기간 (기본값 7)",
+                    "default": 7,
+                },
+            },
+            "required": [],
+        },
+    },
+    # ── Feature Flags & SQLite (Phase 4/5) ───────────────────────────────────
+    {
+        "name": "get_feature_flags",
+        "description": "현재 활성화된 feature flag 목록과 상태를 반환합니다.",
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
 ]

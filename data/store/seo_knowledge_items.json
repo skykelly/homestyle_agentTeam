@@ -194,5 +194,33 @@
       "beauty_seo"
     ],
     "created_at": "2026-06-29T05:53:17.381288"
+  },
+  {
+    "item_id": "know_e7292e28",
+    "source_type": "keyword_analysis",
+    "source_id": "a09aff14-aa8",
+    "title": "키워드 분석 — 2026-06-29",
+    "summary": "클러스터 13개 | 갭 키워드 12개 | 상위 기회: 콜라겐 세럼",
+    "content": "[{\"cluster\": \"콜라겐 세럼\", \"intent\": \"mixed\", \"opportunity_score\": 98955.5, \"avg_position\": 8.7, \"total_impressions\": 120700, \"action\": \"제목/메타 최적화\"}, {\"cluster\": \"히알루론산 세럼\", \"intent\": \"informational\", \"opportunity_score\": 54440.1, \"avg_position\": 11.8, \"total_impressions\": 46800, \"action\": \"순위 개선 필요\"}, {\"cluster\": \"레티놀 세럼 부작용\", \"intent\": \"mixed\", \"opportunity_score\": 44583.7, \"avg_position\": 12.6, \"total_impressions\": 35600, \"action\": \"순위 개선 필요\"}, {\"cluster\": \"뷰티랩\", \"intent\": \"navigational\", \"opportunity_score\": 29044.0, \"avg_position\": 8.8, \"total_impressions\": 36000, \"action\": \"제목/메타 최적화\"}, {\"cluster\": \"나이아신아마이드 효능\", \"intent\": \"mixed\", \"opportunity_score\": 18113.9, \"avg_position\": 8.3, \"total_impressions\": 22000, \"action\": \"신규 콘텐츠 작성\"}]",
+    "tags": [
+      "keyword_analysis",
+      "gsc",
+      "mock"
+    ],
+    "created_at": "2026-06-29T07:23:52.235183"
+  },
+  {
+    "item_id": "know_cc872e65",
+    "source_type": "keyword_analysis",
+    "source_id": "c2b74ddb-887",
+    "title": "키워드 분석 — 2026-06-29",
+    "summary": "클러스터 13개 | 갭 키워드 12개 | 상위 기회: 콜라겐 세럼",
+    "content": "[{\"cluster\": \"콜라겐 세럼\", \"intent\": \"mixed\", \"opportunity_score\": 98955.5, \"avg_position\": 8.7, \"total_impressions\": 120700, \"action\": \"제목/메타 최적화\"}, {\"cluster\": \"히알루론산 세럼\", \"intent\": \"informational\", \"opportunity_score\": 54440.1, \"avg_position\": 11.8, \"total_impressions\": 46800, \"action\": \"순위 개선 필요\"}, {\"cluster\": \"레티놀 세럼 부작용\", \"intent\": \"mixed\", \"opportunity_score\": 44583.7, \"avg_position\": 12.6, \"total_impressions\": 35600, \"action\": \"순위 개선 필요\"}, {\"cluster\": \"뷰티랩\", \"intent\": \"navigational\", \"opportunity_score\": 29044.0, \"avg_position\": 8.8, \"total_impressions\": 36000, \"action\": \"제목/메타 최적화\"}, {\"cluster\": \"나이아신아마이드 효능\", \"intent\": \"mixed\", \"opportunity_score\": 18113.9, \"avg_position\": 8.3, \"total_impressions\": 22000, \"action\": \"신규 콘텐츠 작성\"}]",
+    "tags": [
+      "keyword_analysis",
+      "gsc",
+      "mock"
+    ],
+    "created_at": "2026-06-29T07:24:06.059980"
   }
 ]

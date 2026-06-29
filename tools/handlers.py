@@ -1103,6 +1103,76 @@ def get_governance_summary_handler() -> dict:
     return wf.get_governance_summary()
 
 
+# ── Keyword & Query Agent handlers (Phase 3) ─────────────────────────────────
+
+def analyze_keyword_clusters_handler(
+    min_impressions: int = 100,
+    gap_ctr_threshold: float = 0.02,
+    llm_augment: bool = False,
+) -> dict:
+    from workflows.keyword_agent import KeywordQueryAgent
+    agent = KeywordQueryAgent(verbose=False)
+    return agent.analyze(
+        min_impressions=min_impressions,
+        gap_ctr_threshold=gap_ctr_threshold,
+        llm_augment=llm_augment,
+    )
+
+
+def get_keyword_gaps_handler(
+    min_impressions: int = 200,
+    max_ctr: float = 0.02,
+    limit: int = 20,
+) -> dict:
+    from workflows.keyword_agent import KeywordQueryAgent
+    agent = KeywordQueryAgent(verbose=False)
+    result = agent.analyze(min_impressions=min_impressions, gap_ctr_threshold=max_ctr, llm_augment=False)
+    return {
+        "keyword_gaps": result["keyword_gaps"][:limit],
+        "total_gaps": len(result["keyword_gaps"]),
+        "data_source": result["data_source"],
+    }
+
+
+# ── Data Ingestion Agent handlers (Phase 3) ──────────────────────────────────
+
+def get_connector_status_handler() -> dict:
+    from workflows.data_ingestion_agent import DataIngestionAgent
+    agent = DataIngestionAgent(verbose=False)
+    return agent.get_connector_status()
+
+
+def refresh_data_connectors_handler(days: int = 28) -> dict:
+    from workflows.data_ingestion_agent import DataIngestionAgent
+    agent = DataIngestionAgent(verbose=False)
+    return agent.refresh_all(days=days)
+
+
+def get_data_freshness_handler() -> dict:
+    from workflows.data_ingestion_agent import DataIngestionAgent
+    agent = DataIngestionAgent(verbose=False)
+    return agent.get_freshness_report()
+
+
+def get_daily_metrics_summary_handler(platform: str = "", days: int = 7) -> dict:
+    from workflows.data_ingestion_agent import DataIngestionAgent
+    agent = DataIngestionAgent(verbose=False)
+    return agent.get_daily_metrics_summary(platform=platform, days=days)
+
+
+# ── Feature Flags handler (Phase 4/5) ────────────────────────────────────────
+
+def get_feature_flags_handler() -> dict:
+    from config.feature_flags import get_all
+    flags = get_all()
+    return {
+        "flags": flags,
+        "active_real_apis": [k for k, v in flags.items() if v and k.startswith("USE_REAL_")],
+        "sqlite_enabled": flags.get("USE_SQLITE", False),
+        "hint": "Set env vars to enable (e.g. USE_SQLITE=true, USE_REAL_NAVER_ADS=true)",
+    }
+
+
 # Dispatch table: tool name -> handler function
 TOOL_HANDLERS = {
     "get_campaign_performance": get_campaign_performance,
@@ -1149,6 +1219,16 @@ TOOL_HANDLERS = {
     "get_pagespeed_summary": get_pagespeed_summary,
     "generate_content_brief": generate_content_brief,
     "get_seo_recommendations": get_seo_recommendations,
+    # Phase 3: Keyword Agent
+    "analyze_keyword_clusters": analyze_keyword_clusters_handler,
+    "get_keyword_gaps": get_keyword_gaps_handler,
+    # Phase 3: Data Ingestion Agent
+    "get_connector_status": get_connector_status_handler,
+    "refresh_data_connectors": refresh_data_connectors_handler,
+    "get_data_freshness": get_data_freshness_handler,
+    "get_daily_metrics_summary": get_daily_metrics_summary_handler,
+    # Phase 4/5: Feature Flags
+    "get_feature_flags": get_feature_flags_handler,
 }
 
 
