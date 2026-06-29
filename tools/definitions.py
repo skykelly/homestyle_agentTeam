@@ -466,4 +466,182 @@ TOOLS = [
             "required": [],
         },
     },
+    # ── Phase 3: SEO tools ──────────────────────────────────────────────────
+    {
+        "name": "get_seo_overview",
+        "description": (
+            "SEO 사이트 개요를 조회합니다 (Phase 3). "
+            "Google Search Console 28일 지표(클릭, 노출, CTR, 포지션)와 "
+            "오가닉 매출 현황을 전기 대비 비교하여 반환합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "site_url": {
+                    "type": "string",
+                    "description": "조회할 사이트 URL (예: https://beautylab.co.kr)",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "run_seo_diagnosis",
+        "description": (
+            "SEO 진단을 실행합니다 (Phase 3). "
+            "6가지 SEO 규칙(Low CTR, Page2 기회, 콘텐츠 노후화, 카니발라이제이션, "
+            "기술적 이슈, GEO 후보)을 자동으로 점검하고 우선순위화된 권고사항을 생성합니다. "
+            "LLM 분석을 통한 콘텐츠 브리프도 생성됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "site_url": {
+                    "type": "string",
+                    "description": "진단할 사이트 URL",
+                },
+                "min_impressions": {
+                    "type": "integer",
+                    "description": "분석 대상 최소 노출 수 (기본값 3000)",
+                    "default": 3000,
+                },
+                "llm_augment": {
+                    "type": "boolean",
+                    "description": "LLM 전략 분석 포함 여부 (기본값 True)",
+                    "default": True,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "get_seo_query_opportunities",
+        "description": (
+            "SEO 쿼리 기회를 조회합니다 (Phase 3). "
+            "Low CTR, Page 2 진입 기회, 카니발라이제이션, GEO 후보 등 "
+            "유형별로 필터링하여 검색 쿼리 개선 기회를 반환합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "opportunity_type": {
+                    "type": "string",
+                    "enum": ["ctr_improvement", "ranking_boost", "cannibalization_fix",
+                             "geo_candidate", "content_refresh", "all"],
+                    "description": "조회할 기회 유형. 'all'이면 전체.",
+                    "default": "all",
+                },
+                "min_impressions": {
+                    "type": "integer",
+                    "description": "최소 노출 수 필터 (기본값 3000)",
+                    "default": 3000,
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "최대 반환 건수 (기본값 10)",
+                    "default": 10,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "get_technical_audit",
+        "description": (
+            "기술적 SEO 감사 결과를 조회합니다 (Phase 3). "
+            "사이트 크롤 데이터 기반으로 H1 누락, 메타 설명 누락, "
+            "구조화된 데이터 부재, 사이트맵 오류, 리다이렉트 체인 등을 점검합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "page_type": {
+                    "type": "string",
+                    "enum": ["product", "category", "article", "faq", "home", "all"],
+                    "description": "점검할 페이지 유형. 'all'이면 전체.",
+                    "default": "all",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "get_pagespeed_summary",
+        "description": (
+            "PageSpeed 성과 요약을 조회합니다 (Phase 3). "
+            "Core Web Vitals(LCP, CLS, INP) 및 성능 점수를 페이지별로 반환합니다. "
+            "모바일/데스크톱 전략별 조회 가능."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "strategy": {
+                    "type": "string",
+                    "enum": ["mobile", "desktop", "both"],
+                    "description": "조회할 전략 (기본값 mobile)",
+                    "default": "mobile",
+                },
+                "url": {
+                    "type": "string",
+                    "description": "특정 URL 조회 (선택사항). 미입력 시 전체 페이지.",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "generate_content_brief",
+        "description": (
+            "특정 URL의 콘텐츠 브리프를 생성합니다 (Phase 3). "
+            "SEO 최적화를 위한 제목 태그 옵션, 메타 설명 옵션, "
+            "추천 콘텐츠 섹션, 내부 링크 제안, 구조화 데이터 권장사항을 반환합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "description": "콘텐츠 브리프를 생성할 URL",
+                },
+                "target_query": {
+                    "type": "string",
+                    "description": "주요 타겟 검색 쿼리",
+                },
+                "current_position": {
+                    "type": "number",
+                    "description": "현재 검색 순위 포지션",
+                },
+            },
+            "required": ["url", "target_query"],
+        },
+    },
+    {
+        "name": "get_seo_recommendations",
+        "description": (
+            "SEO 권고사항 목록을 조회합니다 (Phase 3). "
+            "기회 유형, 우선순위, URL별로 필터링 가능하며 "
+            "임팩트/노력도 점수 기반으로 정렬됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "priority": {
+                    "type": "string",
+                    "enum": ["critical", "high", "medium", "low", "all"],
+                    "description": "우선순위 필터 (기본값 all)",
+                    "default": "all",
+                },
+                "opportunity_type": {
+                    "type": "string",
+                    "description": "기회 유형 필터 (선택사항)",
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "최대 반환 건수 (기본값 15)",
+                    "default": 15,
+                },
+            },
+            "required": [],
+        },
+    },
 ]

@@ -584,6 +584,348 @@ def get_approval_summary() -> dict:
     return wf.get_approval_summary()
 
 
+# ---------------------------------------------------------------------------
+# Phase 3: SEO tool handlers
+# ---------------------------------------------------------------------------
+
+def get_seo_overview(site_url: str = "https://beautylab.co.kr") -> dict:
+    from data.seo_mock_data import SITE_BENCHMARKS
+    b = SITE_BENCHMARKS
+    p = b["period_28d"]
+    prev = b["period_prev_28d"]
+
+    def delta_pct(cur, old):
+        return round((cur - old) / old * 100, 1) if old else 0
+
+    return {
+        "site": b["site_name"],
+        "site_url": b["site_url"],
+        "category": b["category"],
+        "period": "최근 28일",
+        "metrics": {
+            "total_clicks": p["total_clicks"],
+            "total_clicks_delta_pct": delta_pct(p["total_clicks"], prev["total_clicks"]),
+            "total_impressions": p["total_impressions"],
+            "total_impressions_delta_pct": delta_pct(p["total_impressions"], prev["total_impressions"]),
+            "avg_ctr": p["avg_ctr"],
+            "avg_ctr_delta_pct": delta_pct(p["avg_ctr"], prev["avg_ctr"]),
+            "avg_position": p["avg_position"],
+            "avg_position_delta": round(p["avg_position"] - prev["avg_position"], 1),
+            "organic_revenue_krw": p["organic_revenue_krw"],
+            "organic_revenue_delta_pct": delta_pct(p["organic_revenue_krw"], prev["organic_revenue_krw"]),
+        },
+        "health_signals": {
+            "click_trend": "하락" if p["total_clicks"] < prev["total_clicks"] else "상승",
+            "position_trend": "하락" if p["avg_position"] > prev["avg_position"] else "상승",
+            "ctr_trend": "하락" if p["avg_ctr"] < prev["avg_ctr"] else "상승",
+        },
+    }
+
+
+def run_seo_diagnosis(
+    site_url: str = "https://beautylab.co.kr",
+    min_impressions: int = 3000,
+    llm_augment: bool = False,  # Default False when called from within LLM
+) -> dict:
+    from workflows.seo_diagnosis import SEODiagnosisWorkflow
+    wf = SEODiagnosisWorkflow(verbose=False)
+    return wf.diagnose(
+        site_url=site_url,
+        min_impressions=min_impressions,
+        llm_augment=llm_augment,
+        max_results=15,
+    )
+
+
+def get_seo_query_opportunities(
+    opportunity_type: str = "all",
+    min_impressions: int = 3000,
+    limit: int = 10,
+) -> dict:
+    from rules.seo_rules import run_all_seo_rules
+    all_hits = run_all_seo_rules(min_impressions=min_impressions)
+
+    if opportunity_type != "all":
+        hits = [h for h in all_hits if h.opportunity_type == opportunity_type]
+    else:
+        hits = all_hits
+
+    hits = hits[:limit]
+
+    return {
+        "opportunity_type": opportunity_type,
+        "total_found": len(all_hits) if opportunity_type == "all" else len([h for h in all_hits if h.opportunity_type == opportunity_type]),
+        "returned": len(hits),
+        "opportunities": [
+            {
+                "rule_id": h.rule_id,
+                "priority": h.priority,
+                "opportunity_type": h.opportunity_type,
+                "target_url": h.target_url,
+                "target_queries": h.target_queries,
+                "description": h.description,
+                "expected_impact": h.expected_impact,
+                "effort_score": h.effort_score,
+                "impact_score": h.impact_score,
+                "confidence_score": h.confidence_score,
+            }
+            for h in hits
+        ],
+    }
+
+
+def get_technical_audit(page_type: str = "all") -> dict:
+    from data.seo_mock_data import get_crawled_pages
+    from rules.seo_rules import check_technical_blocker
+
+    pages = get_crawled_pages() if page_type == "all" else get_crawled_pages(page_type)
+    all_issues = []
+    page_summaries = []
+
+    for page in pages:
+        issues = check_technical_blocker(page)
+        triggered = [i for i in issues if i.triggered]
+        page_summaries.append({
+            "url": page.url,
+            "status_code": page.status_code,
+            "page_type": page.page_type,
+            "is_indexable": page.is_indexable,
+            "in_sitemap": page.in_sitemap,
+            "has_h1": bool(page.h1.strip()),
+            "has_meta_description": bool(page.meta_description.strip()),
+            "has_structured_data": page.has_structured_data,
+            "redirect_chain_length": page.redirect_chain_length,
+            "internal_link_count": page.internal_link_count,
+            "last_updated_days": page.last_updated_days,
+            "issue_count": len(triggered),
+        })
+        all_issues.extend(triggered)
+
+    return {
+        "page_type_filter": page_type,
+        "pages_audited": len(pages),
+        "total_issues": len(all_issues),
+        "page_summaries": page_summaries,
+        "issues": [
+            {
+                "rule_id": i.rule_id,
+                "priority": i.priority,
+                "target_url": i.target_url,
+                "description": i.description,
+                "problem": i.problem,
+                "recommendation": i.recommendation,
+                "expected_impact": i.expected_impact,
+            }
+            for i in all_issues
+        ],
+    }
+
+
+def get_pagespeed_summary(strategy: str = "mobile", url: str = "") -> dict:
+    from data.seo_mock_data import get_pagespeed, PAGESPEED_DATA
+
+    if strategy == "both":
+        rows = PAGESPEED_DATA
+    else:
+        rows = get_pagespeed(url=url, strategy=strategy)
+
+    def classify_lcp(lcp_ms):
+        if lcp_ms <= 2500:
+            return "Good"
+        if lcp_ms <= 4000:
+            return "Needs Improvement"
+        return "Poor"
+
+    def classify_cls(cls):
+        if cls <= 0.1:
+            return "Good"
+        if cls <= 0.25:
+            return "Needs Improvement"
+        return "Poor"
+
+    def classify_score(score):
+        if score >= 0.9:
+            return "Good"
+        if score >= 0.5:
+            return "Needs Improvement"
+        return "Poor"
+
+    results = []
+    for r in rows:
+        results.append({
+            "url": r.url,
+            "strategy": r.strategy,
+            "performance_score": r.performance_score,
+            "performance_rating": classify_score(r.performance_score),
+            "lcp_ms": r.lcp_ms,
+            "lcp_rating": classify_lcp(r.lcp_ms),
+            "cls": r.cls,
+            "cls_rating": classify_cls(r.cls),
+            "inp_ms": r.inp_ms,
+            "seo_score": r.seo_score,
+            "accessibility_score": r.accessibility_score,
+        })
+
+    poor_count = sum(1 for r in results if r["performance_rating"] == "Poor")
+    return {
+        "strategy": strategy,
+        "url_filter": url or "all",
+        "pages_analyzed": len(results),
+        "pages_with_poor_performance": poor_count,
+        "results": results,
+        "summary": {
+            "avg_performance_score": round(sum(r["performance_score"] for r in results) / len(results), 2) if results else 0,
+            "avg_lcp_ms": round(sum(r["lcp_ms"] for r in results) / len(results)) if results else 0,
+            "avg_cls": round(sum(r["cls"] for r in results) / len(results), 3) if results else 0,
+        },
+    }
+
+
+def generate_content_brief(
+    url: str,
+    target_query: str,
+    current_position: float = 0,
+) -> dict:
+    from data.seo_mock_data import get_gsc_queries, get_ga4_landing
+    from rules.seo_rules import check_low_ctr, check_geo_candidate
+
+    # Find existing data for this URL
+    gsc_rows = [r for r in get_gsc_queries() if r.url == url]
+    ga4_rows = get_ga4_landing(url)
+
+    # Find matching query row
+    matching_row = next((r for r in gsc_rows if r.query == target_query), None)
+
+    position = current_position or (matching_row.position if matching_row else 0)
+    impressions = matching_row.impressions if matching_row else 0
+    current_ctr = matching_row.ctr if matching_row else 0
+
+    # Determine search intent
+    question_markers = ["어떻게", "무엇", "언제", "왜", "얼마나", "차이", "되나요", "해야 해"]
+    is_question = any(m in target_query for m in question_markers)
+    search_intent = "informational" if is_question else "commercial" if "추천" in target_query or "최고" in target_query else "mixed"
+
+    # GA4 data
+    ga4 = ga4_rows[0] if ga4_rows else None
+
+    return {
+        "brief_id": f"BRIEF_{url.replace('/', '_').strip('_').upper()[:20]}_{datetime.now().strftime('%Y%m%d')}",
+        "target_url": url,
+        "primary_query": target_query,
+        "search_intent": search_intent,
+        "current_metrics": {
+            "position": position,
+            "impressions": impressions,
+            "current_ctr": current_ctr,
+            "sessions": ga4.sessions if ga4 else None,
+            "conversion_rate": ga4.conversion_rate if ga4 else None,
+        },
+        "title_options": [
+            f"{target_query} 완벽 가이드 2024 | 뷰티랩",
+            f"[전문가 추천] {target_query} — 효과·성분·사용법",
+            f"{target_query}: 뷰티랩이 검증한 최고의 선택",
+        ],
+        "meta_description_options": [
+            f"{target_query}에 대한 모든 것. 성분 분석, 사용 순서, 피부 타입별 추천. 뷰티랩 전문가의 리얼 테스트 결과.",
+            f"'{target_query}' 고민 해결! 효과·부작용·사용법을 한눈에 정리. 뷰티랩 추천 제품도 확인하세요.",
+        ],
+        "recommended_sections": _get_recommended_sections(target_query, search_intent),
+        "internal_link_suggestions": [
+            {"url": "/product/collagen-serum-50ml", "anchor_text": "뷰티랩 콜라겐 세럼"},
+            {"url": "/skincare/routine-guide", "anchor_text": "스킨케어 순서 가이드"},
+            {"url": "/category/serums", "anchor_text": "전체 세럼 라인업"},
+        ],
+        "structured_data_recommendations": [
+            "Article (published_date, author, image)",
+            "FAQPage (자주 묻는 질문 섹션)" if is_question else "BreadcrumbList",
+            "BreadcrumbList",
+        ],
+        "content_gaps": [
+            f"'{target_query}' 쿼리 주변의 LSI 키워드 추가 필요",
+            "경쟁 페이지 대비 콘텐츠 depth 부족 (목표 1,500자 이상)",
+            "이미지 alt 태그에 타겟 키워드 미포함",
+        ],
+        "seo_checklist": {
+            "title_includes_keyword": True,
+            "meta_description_present": bool(ga4),  # proxy
+            "h1_matches_title": True,
+            "faq_schema": is_question,
+            "internal_links_min_3": (len(gsc_rows) > 0),
+            "image_alt_tags": False,
+        },
+    }
+
+
+def get_seo_recommendations(
+    priority: str = "all",
+    opportunity_type: str = "",
+    limit: int = 15,
+) -> dict:
+    from rules.seo_rules import run_all_seo_rules
+    all_hits = run_all_seo_rules()
+
+    filtered = all_hits
+    if priority != "all":
+        filtered = [h for h in filtered if h.priority == priority]
+    if opportunity_type:
+        filtered = [h for h in filtered if h.opportunity_type == opportunity_type]
+
+    # Sort by priority score (impact/effort * confidence)
+    filtered.sort(
+        key=lambda h: h.impact_score / max(h.effort_score, 1) * h.confidence_score,
+        reverse=True,
+    )
+    filtered = filtered[:limit]
+
+    priority_counts = {}
+    for h in all_hits:
+        priority_counts[h.priority] = priority_counts.get(h.priority, 0) + 1
+
+    return {
+        "filters": {"priority": priority, "opportunity_type": opportunity_type},
+        "total_recommendations": len(all_hits),
+        "returned": len(filtered),
+        "priority_breakdown": priority_counts,
+        "recommendations": [
+            {
+                "rule_id": h.rule_id,
+                "rule_name": h.rule_name,
+                "priority": h.priority,
+                "opportunity_type": h.opportunity_type,
+                "target_url": h.target_url,
+                "target_queries": h.target_queries,
+                "description": h.description,
+                "problem": h.problem,
+                "recommendation": h.recommendation,
+                "expected_impact": h.expected_impact,
+                "evidence": h.evidence,
+                "effort_score": h.effort_score,
+                "impact_score": h.impact_score,
+                "confidence_score": h.confidence_score,
+                "priority_score": round(h.impact_score / max(h.effort_score, 1) * h.confidence_score, 2),
+                "required_approval": h.required_approval,
+            }
+            for h in filtered
+        ],
+    }
+
+
+def _get_recommended_sections(query: str, intent: str) -> list[str]:
+    base = [
+        f"{query}란? (정의 및 핵심 특징)",
+        "주요 성분 분석",
+        "피부 타입별 사용 가이드",
+        "올바른 사용 순서",
+        "기대 효과 및 주의사항",
+    ]
+    if intent == "informational":
+        base.append("자주 묻는 질문 (FAQ)")
+    if "비교" in query or "vs" in query:
+        base.insert(2, "비교 분석 테이블")
+    base.append("뷰티랩 추천 제품")
+    return base
+
+
 # Dispatch table: tool name -> handler function
 TOOL_HANDLERS = {
     "get_campaign_performance": get_campaign_performance,
@@ -601,6 +943,14 @@ TOOL_HANDLERS = {
     "approve_recommendation": approve_recommendation,
     "reject_recommendation": reject_recommendation,
     "get_approval_summary": get_approval_summary,
+    # Phase 3: SEO
+    "get_seo_overview": get_seo_overview,
+    "run_seo_diagnosis": run_seo_diagnosis,
+    "get_seo_query_opportunities": get_seo_query_opportunities,
+    "get_technical_audit": get_technical_audit,
+    "get_pagespeed_summary": get_pagespeed_summary,
+    "generate_content_brief": generate_content_brief,
+    "get_seo_recommendations": get_seo_recommendations,
 }
 
 
