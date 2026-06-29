@@ -1,0 +1,446 @@
+[
+  {
+    "experiment_id": "exp_d37e5f4b",
+    "target_url": "/skincare/collagen-serum-guide",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 6.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 970,
+      "impressions_28d": 60000,
+      "ctr": 0.0208,
+      "position": 6.2,
+      "sessions": 3100,
+      "conversions": 62,
+      "revenue_krw": 9300000,
+      "primary_query": "콜라겐 세럼 추천"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 1398,
+      "impressions_28d": 61693,
+      "ctr": 0.0227,
+      "position": 5.2
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 44% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 44.1,
+      "impressions_delta_pct": 2.8,
+      "ctr_delta_pct": 9.1,
+      "position_delta": -1.0
+    },
+    "created_at": "2026-06-29T05:51:41.155025",
+    "updated_at": "2026-06-29T05:51:41.155029"
+  },
+  {
+    "experiment_id": "exp_00b3f8b2",
+    "target_url": "/skincare/hyaluronic-acid",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 5.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 380,
+      "impressions_28d": 38000,
+      "ctr": 0.01,
+      "position": 6.8,
+      "sessions": 2400,
+      "conversions": 24,
+      "revenue_krw": 3600000,
+      "primary_query": "히알루론산 세럼 효과"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 544,
+      "impressions_28d": 38355,
+      "ctr": 0.0142,
+      "position": 6.1
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 43% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 43.2,
+      "impressions_delta_pct": 0.9,
+      "ctr_delta_pct": 42.0,
+      "position_delta": -0.7
+    },
+    "created_at": "2026-06-29T05:51:41.155555",
+    "updated_at": "2026-06-29T05:51:41.155558"
+  },
+  {
+    "experiment_id": "exp_6211362c",
+    "target_url": "/skincare/retinol-guide",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 4.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 290,
+      "impressions_28d": 29000,
+      "ctr": 0.01,
+      "position": 7.1,
+      "sessions": 0,
+      "conversions": 0,
+      "revenue_krw": 0,
+      "primary_query": "레티놀 세럼 부작용"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 412,
+      "impressions_28d": 30862,
+      "ctr": 0.0133,
+      "position": 6.2
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 42% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 42.1,
+      "impressions_delta_pct": 6.4,
+      "ctr_delta_pct": 33.0,
+      "position_delta": -0.9
+    },
+    "created_at": "2026-06-29T05:51:41.156330",
+    "updated_at": "2026-06-29T05:51:41.156333"
+  },
+  {
+    "experiment_id": "exp_066e0b99",
+    "target_url": "/skincare/collagen-serum-guide",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 6.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 970,
+      "impressions_28d": 60000,
+      "ctr": 0.0208,
+      "position": 6.2,
+      "sessions": 3100,
+      "conversions": 62,
+      "revenue_krw": 9300000,
+      "primary_query": "콜라겐 세럼 추천"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 1377,
+      "impressions_28d": 61086,
+      "ctr": 0.0225,
+      "position": 5.4
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 42% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 42.0,
+      "impressions_delta_pct": 1.8,
+      "ctr_delta_pct": 8.2,
+      "position_delta": -0.8
+    },
+    "created_at": "2026-06-29T05:51:57.356837",
+    "updated_at": "2026-06-29T05:51:57.356840"
+  },
+  {
+    "experiment_id": "exp_d48257c2",
+    "target_url": "/skincare/hyaluronic-acid",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 5.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 380,
+      "impressions_28d": 38000,
+      "ctr": 0.01,
+      "position": 6.8,
+      "sessions": 2400,
+      "conversions": 24,
+      "revenue_krw": 3600000,
+      "primary_query": "히알루론산 세럼 효과"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 457,
+      "impressions_28d": 43676,
+      "ctr": 0.0105,
+      "position": 6.0
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 20% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 20.3,
+      "impressions_delta_pct": 14.9,
+      "ctr_delta_pct": 5.0,
+      "position_delta": -0.8
+    },
+    "created_at": "2026-06-29T05:51:57.357705",
+    "updated_at": "2026-06-29T05:51:57.357708"
+  },
+  {
+    "experiment_id": "exp_04086998",
+    "target_url": "/skincare/retinol-guide",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 4.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 290,
+      "impressions_28d": 29000,
+      "ctr": 0.01,
+      "position": 7.1,
+      "sessions": 0,
+      "conversions": 0,
+      "revenue_krw": 0,
+      "primary_query": "레티놀 세럼 부작용"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 344,
+      "impressions_28d": 30301,
+      "ctr": 0.0114,
+      "position": 6.4
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 19% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 18.6,
+      "impressions_delta_pct": 4.5,
+      "ctr_delta_pct": 14.0,
+      "position_delta": -0.7
+    },
+    "created_at": "2026-06-29T05:51:57.358615",
+    "updated_at": "2026-06-29T05:51:57.358618"
+  },
+  {
+    "experiment_id": "demo_exp_collagen",
+    "target_url": "/skincare/collagen-serum-guide",
+    "change_type": "title_meta",
+    "change_description": "제목 태그 및 메타 설명 개선",
+    "baseline_metrics": {
+      "clicks_28d": 970,
+      "impressions_28d": 60000,
+      "ctr": 0.0116,
+      "position": 5.2
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 1266,
+      "impressions_28d": 65175,
+      "ctr": 0.0194,
+      "position": 3.7
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 31% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 30.5,
+      "impressions_delta_pct": 8.6,
+      "ctr_delta_pct": 67.2,
+      "position_delta": -1.5
+    },
+    "created_at": "2026-06-29T05:52:16.431171",
+    "updated_at": "2026-06-29T05:52:16.431175"
+  },
+  {
+    "experiment_id": "demo_exp_hyaluron",
+    "target_url": "/skincare/hyaluronic-acid",
+    "change_type": "content_update",
+    "change_description": "히알루론산 콘텐츠 업데이트 및 FAQ 추가",
+    "baseline_metrics": {
+      "clicks_28d": 380,
+      "impressions_28d": 38000,
+      "ctr": 0.01,
+      "position": 6.8
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 510,
+      "impressions_28d": 36581,
+      "ctr": 0.0139,
+      "position": 6.5
+    },
+    "outcome": "success",
+    "learning_summary": "콘텐츠 업데이트 후 긍정적 결과. E-E-A-T 강화와 FAQ 추가가 효과적.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 34.2,
+      "impressions_delta_pct": -3.7,
+      "ctr_delta_pct": 39.0,
+      "position_delta": -0.3
+    },
+    "created_at": "2026-06-29T05:52:16.432379",
+    "updated_at": "2026-06-29T05:52:16.432383"
+  },
+  {
+    "experiment_id": "demo_exp_serum-vs",
+    "target_url": "/faq/serum-vs-ampoule",
+    "change_type": "title_meta",
+    "change_description": "FAQPage 스키마 추가 및 메타 개선",
+    "baseline_metrics": {
+      "clicks_28d": 120,
+      "impressions_28d": 12000,
+      "ctr": 0.01,
+      "position": 13.4
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 140,
+      "impressions_28d": 12668,
+      "ctr": 0.0111,
+      "position": 12.5
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 17% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 16.7,
+      "impressions_delta_pct": 5.6,
+      "ctr_delta_pct": 11.0,
+      "position_delta": -0.9
+    },
+    "created_at": "2026-06-29T05:52:16.433557",
+    "updated_at": "2026-06-29T05:52:16.433560"
+  },
+  {
+    "experiment_id": "exp_55304116",
+    "target_url": "/skincare/collagen-serum-guide",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 6.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 970,
+      "impressions_28d": 60000,
+      "ctr": 0.0208,
+      "position": 6.2,
+      "sessions": 3100,
+      "conversions": 62,
+      "revenue_krw": 9300000,
+      "primary_query": "콜라겐 세럼 추천"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 1124,
+      "impressions_28d": 62681,
+      "ctr": 0.0179,
+      "position": 5.6
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 16% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 15.9,
+      "impressions_delta_pct": 4.5,
+      "ctr_delta_pct": -13.9,
+      "position_delta": -0.6
+    },
+    "created_at": "2026-06-29T05:52:51.301455",
+    "updated_at": "2026-06-29T05:52:51.301459"
+  },
+  {
+    "experiment_id": "exp_c4ecb563",
+    "target_url": "/skincare/hyaluronic-acid",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 5.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 380,
+      "impressions_28d": 38000,
+      "ctr": 0.01,
+      "position": 6.8,
+      "sessions": 2400,
+      "conversions": 24,
+      "revenue_krw": 3600000,
+      "primary_query": "히알루론산 세럼 효과"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 488,
+      "impressions_28d": 38252,
+      "ctr": 0.0128,
+      "position": 6.2
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 28% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 28.4,
+      "impressions_delta_pct": 0.7,
+      "ctr_delta_pct": 28.0,
+      "position_delta": -0.6
+    },
+    "created_at": "2026-06-29T05:52:51.302802",
+    "updated_at": "2026-06-29T05:52:51.302805"
+  },
+  {
+    "experiment_id": "exp_0b79e86f",
+    "target_url": "/skincare/retinol-guide",
+    "change_type": "title_meta",
+    "change_description": "제목 태그와 메타 설명을 검색 의도에 맞게 개선하여 CTR을 4.0% 수준으로 향상.",
+    "baseline_metrics": {
+      "clicks_28d": 290,
+      "impressions_28d": 29000,
+      "ctr": 0.01,
+      "position": 7.1,
+      "sessions": 0,
+      "conversions": 0,
+      "revenue_krw": 0,
+      "primary_query": "레티놀 세럼 부작용"
+    },
+    "baseline_start_date": "2026-06-01",
+    "baseline_end_date": "2026-06-29",
+    "experiment_start_date": "2026-06-29",
+    "experiment_end_date": "2026-06-29",
+    "result_metrics": {
+      "clicks_28d": 348,
+      "impressions_28d": 30850,
+      "ctr": 0.0113,
+      "position": 6.3
+    },
+    "outcome": "success",
+    "learning_summary": "제목/메타 설명 개선으로 CTR이 20% 향상됨. 검색 의도 정렬이 핵심 성공 요인.",
+    "recommendation_id": null,
+    "status": "completed",
+    "delta": {
+      "clicks_delta_pct": 20.0,
+      "impressions_delta_pct": 6.4,
+      "ctr_delta_pct": 13.0,
+      "position_delta": -0.8
+    },
+    "created_at": "2026-06-29T05:52:51.304046",
+    "updated_at": "2026-06-29T05:52:51.304049"
+  }
+]

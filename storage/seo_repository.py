@@ -1,0 +1,134 @@
+"""
+SEO-specific repository (Phase 4-6).
+Stores ContentBrief, StructuredDataRecommendation, InternalLinkRecommendation,
+SEOExperiment, KnowledgeItem to JSON files.
+"""
+
+import json
+import os
+from pathlib import Path
+from typing import Optional
+
+STORE_DIR = Path(__file__).parent.parent / "data" / "store"
+STORE_DIR.mkdir(parents=True, exist_ok=True)
+
+BRIEFS_FILE = STORE_DIR / "seo_content_briefs.json"
+SCHEMA_RECS_FILE = STORE_DIR / "seo_structured_data.json"
+LINK_RECS_FILE = STORE_DIR / "seo_internal_links.json"
+EXPERIMENTS_FILE = STORE_DIR / "seo_experiments.json"
+KNOWLEDGE_FILE = STORE_DIR / "seo_knowledge_items.json"
+
+
+def _load(path: Path) -> list:
+    if path.exists():
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return []
+    return []
+
+
+def _save(path: Path, data: list) -> None:
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+# ── ContentBrief ─────────────────────────────────────────────────────────────
+
+def save_content_brief(brief) -> None:
+    items = _load(BRIEFS_FILE)
+    items = [i for i in items if i.get("brief_id") != brief.brief_id]
+    items.append(brief.to_dict())
+    _save(BRIEFS_FILE, items)
+
+
+def list_content_briefs(status: str = "", url: str = "") -> list[dict]:
+    items = _load(BRIEFS_FILE)
+    if status:
+        items = [i for i in items if i.get("status") == status]
+    if url:
+        items = [i for i in items if i.get("target_url") == url]
+    return items
+
+
+def get_content_brief(brief_id: str) -> Optional[dict]:
+    return next((i for i in _load(BRIEFS_FILE) if i.get("brief_id") == brief_id), None)
+
+
+# ── StructuredDataRecommendation ─────────────────────────────────────────────
+
+def save_schema_recommendation(rec) -> None:
+    items = _load(SCHEMA_RECS_FILE)
+    items = [i for i in items if i.get("rec_id") != rec.rec_id]
+    items.append(rec.to_dict())
+    _save(SCHEMA_RECS_FILE, items)
+
+
+def list_schema_recommendations(page_type: str = "") -> list[dict]:
+    items = _load(SCHEMA_RECS_FILE)
+    if page_type:
+        items = [i for i in items if i.get("page_type") == page_type]
+    return items
+
+
+# ── InternalLinkRecommendation ───────────────────────────────────────────────
+
+def save_link_recommendation(rec) -> None:
+    items = _load(LINK_RECS_FILE)
+    items = [i for i in items if i.get("rec_id") != rec.rec_id]
+    items.append(rec.to_dict())
+    _save(LINK_RECS_FILE, items)
+
+
+def list_link_recommendations(priority: str = "") -> list[dict]:
+    items = _load(LINK_RECS_FILE)
+    if priority:
+        items = [i for i in items if i.get("priority") == priority]
+    return items
+
+
+# ── SEOExperiment ─────────────────────────────────────────────────────────────
+
+def save_experiment(exp) -> None:
+    items = _load(EXPERIMENTS_FILE)
+    items = [i for i in items if i.get("experiment_id") != exp.experiment_id]
+    items.append(exp.to_dict())
+    _save(EXPERIMENTS_FILE, items)
+
+
+def list_experiments(status: str = "") -> list[dict]:
+    items = _load(EXPERIMENTS_FILE)
+    if status:
+        items = [i for i in items if i.get("status") == status]
+    return items
+
+
+def get_experiment(experiment_id: str) -> Optional[dict]:
+    return next((i for i in _load(EXPERIMENTS_FILE) if i.get("experiment_id") == experiment_id), None)
+
+
+# ── KnowledgeItem ─────────────────────────────────────────────────────────────
+
+def save_knowledge_item(item) -> None:
+    items = _load(KNOWLEDGE_FILE)
+    items = [i for i in items if i.get("item_id") != item.item_id]
+    items.append(item.to_dict())
+    _save(KNOWLEDGE_FILE, items)
+
+
+def list_knowledge_items(source_type: str = "", tag: str = "") -> list[dict]:
+    items = _load(KNOWLEDGE_FILE)
+    if source_type:
+        items = [i for i in items if i.get("source_type") == source_type]
+    if tag:
+        items = [i for i in items if tag in (i.get("tags") or [])]
+    return items
+
+
+def get_seo_store_summary() -> dict:
+    return {
+        "content_briefs": len(_load(BRIEFS_FILE)),
+        "schema_recommendations": len(_load(SCHEMA_RECS_FILE)),
+        "internal_link_recommendations": len(_load(LINK_RECS_FILE)),
+        "experiments": len(_load(EXPERIMENTS_FILE)),
+        "knowledge_items": len(_load(KNOWLEDGE_FILE)),
+    }

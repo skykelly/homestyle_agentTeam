@@ -926,6 +926,121 @@ def _get_recommended_sections(query: str, intent: str) -> list[str]:
     return base
 
 
+# ---------------------------------------------------------------------------
+# Phase 4-6: SEO Advanced tool handlers
+# ---------------------------------------------------------------------------
+
+def run_seo_pipeline_handler(
+    site_url: str = "https://beautylab.co.kr",
+    skip_llm_in_parallel: bool = True,
+) -> dict:
+    from workflows.seo_parallel_runner import SEOParallelRunner
+    runner = SEOParallelRunner(max_workers=4, llm_augment=False, verbose=False)
+    result = runner.run_full_seo_pipeline(site_url=site_url, skip_llm_in_parallel=skip_llm_in_parallel)
+    # Return a summary to avoid huge tool output
+    return {
+        "status": "completed",
+        "elapsed_seconds": result.get("total_elapsed_seconds"),
+        "summary": result.get("summary", {}),
+        "report_file": result.get("stages", {}).get("stage3", {}).get("report", {}).get("report_file", ""),
+    }
+
+
+def run_content_briefs_handler(
+    max_briefs: int = 5,
+    opportunity_types: list[str] | None = None,
+) -> dict:
+    from workflows.seo_content_brief import SEOContentBriefWorkflow
+    wf = SEOContentBriefWorkflow(verbose=False)
+    result = wf.generate_briefs(
+        max_briefs=max_briefs,
+        opportunity_types=opportunity_types,
+        llm_augment=False,
+    )
+    return {
+        "briefs_generated": result["briefs_generated"],
+        "run_id": result["run_id"],
+        "briefs": result["briefs"][:3],  # Truncate for tool output
+    }
+
+
+def run_structured_data_audit_handler() -> dict:
+    from workflows.seo_structured_data import SEOStructuredDataWorkflow
+    wf = SEOStructuredDataWorkflow(verbose=False)
+    return wf.audit_and_recommend(llm_augment=False)
+
+
+def run_internal_link_analysis_handler() -> dict:
+    from workflows.seo_internal_link import SEOInternalLinkWorkflow
+    wf = SEOInternalLinkWorkflow(verbose=False)
+    return wf.analyze_and_recommend(llm_augment=False)
+
+
+def create_experiment_baselines_handler(top_n: int = 5) -> dict:
+    from workflows.seo_experiment import SEOExperimentWorkflow
+    wf = SEOExperimentWorkflow(verbose=False)
+    return wf.create_experiment_baselines(top_n=top_n)
+
+
+def analyze_experiment_results_handler() -> dict:
+    from workflows.seo_experiment import SEOExperimentWorkflow
+    wf = SEOExperimentWorkflow(verbose=False)
+    result = wf.simulate_results_and_learn(llm_augment=True)
+    return {
+        "experiments_completed": result["experiments_completed"],
+        "knowledge_items_created": result["knowledge_items_created"],
+        "results_summary": [
+            {
+                "experiment_id": e["experiment_id"],
+                "target_url": e["target_url"],
+                "change_type": e["change_type"],
+                "outcome": e["outcome"],
+                "delta": e.get("delta"),
+            }
+            for e in result["results"]
+        ],
+    }
+
+
+def generate_seo_report_handler(
+    report_date: str | None = None,
+    export_markdown: bool = True,
+) -> dict:
+    from workflows.seo_reporting import SEOReportingWorkflow
+    wf = SEOReportingWorkflow(verbose=False)
+    result = wf.generate_weekly_report(
+        report_date=report_date,
+        export_markdown=export_markdown,
+        llm_augment=False,
+    )
+    return {
+        "report_date": result["report_date"],
+        "report_file": result["report_file"],
+        "stats": result["stats"],
+        "markdown_preview": result["markdown"][:1500] + "..." if len(result["markdown"]) > 1500 else result["markdown"],
+    }
+
+
+def list_content_briefs_handler(status: str = "", url: str = "") -> dict:
+    from storage.seo_repository import list_content_briefs
+    briefs = list_content_briefs(status=status, url=url)
+    return {
+        "total": len(briefs),
+        "filters": {"status": status, "url": url},
+        "briefs": briefs,
+    }
+
+
+def get_knowledge_items_handler(source_type: str = "", tag: str = "") -> dict:
+    from storage.seo_repository import list_knowledge_items
+    items = list_knowledge_items(source_type=source_type, tag=tag)
+    return {
+        "total": len(items),
+        "filters": {"source_type": source_type, "tag": tag},
+        "items": items,
+    }
+
+
 # Dispatch table: tool name -> handler function
 TOOL_HANDLERS = {
     "get_campaign_performance": get_campaign_performance,
@@ -943,6 +1058,16 @@ TOOL_HANDLERS = {
     "approve_recommendation": approve_recommendation,
     "reject_recommendation": reject_recommendation,
     "get_approval_summary": get_approval_summary,
+    # Phase 4-6: SEO Advanced
+    "run_seo_pipeline": run_seo_pipeline_handler,
+    "run_content_briefs": run_content_briefs_handler,
+    "run_structured_data_audit": run_structured_data_audit_handler,
+    "run_internal_link_analysis": run_internal_link_analysis_handler,
+    "create_experiment_baselines": create_experiment_baselines_handler,
+    "analyze_experiment_results": analyze_experiment_results_handler,
+    "generate_seo_report": generate_seo_report_handler,
+    "list_content_briefs": list_content_briefs_handler,
+    "get_knowledge_items": get_knowledge_items_handler,
     # Phase 3: SEO
     "get_seo_overview": get_seo_overview,
     "run_seo_diagnosis": run_seo_diagnosis,

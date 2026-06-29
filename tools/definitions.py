@@ -616,6 +616,178 @@ TOOLS = [
         },
     },
     {
+        "name": "run_seo_pipeline",
+        "description": (
+            "SEO 전체 파이프라인을 병렬로 실행합니다 (Phase 4-6). "
+            "진단, 구조화 데이터, 내부 링크, 실험 베이스라인을 동시에 실행하고 "
+            "콘텐츠 브리프 생성 후 주간 리포트를 생성합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "site_url": {
+                    "type": "string",
+                    "description": "분석할 사이트 URL (기본값: https://beautylab.co.kr)",
+                },
+                "skip_llm_in_parallel": {
+                    "type": "boolean",
+                    "description": "병렬 실행 중 LLM 호출 건너뜀 (속도 최적화, 기본값 True)",
+                    "default": True,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "run_content_briefs",
+        "description": (
+            "SEO 기회 기반 콘텐츠 브리프를 생성합니다 (Phase 4). "
+            "상위 CTR 기회와 Page 2 기회에 대해 콘텐츠 작성자가 바로 실행 가능한 "
+            "구조화된 브리프를 생성합니다. 제목, 메타, H1, FAQ, 내부 링크 포함."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "max_briefs": {
+                    "type": "integer",
+                    "description": "생성할 최대 브리프 수 (기본값 5)",
+                    "default": 5,
+                },
+                "opportunity_types": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "대상 기회 유형 (기본값: ['ctr_improvement', 'ranking_boost'])",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "run_structured_data_audit",
+        "description": (
+            "구조화 데이터(Schema.org) 감사 및 JSON-LD 초안을 생성합니다 (Phase 4). "
+            "페이지 유형별로 적용 가능한 스키마 타입, 누락 속성, "
+            "리치 스니펫 획득 가능성을 평가하고 바로 사용 가능한 JSON-LD 코드를 제공합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
+    {
+        "name": "run_internal_link_analysis",
+        "description": (
+            "내부 링크 구조를 분석하고 개선안을 생성합니다 (Phase 4). "
+            "Hub-Spoke 토픽 클러스터 구조, 고립 페이지 구조 탈출, "
+            "콘텐츠→제품 전환 경로 강화, FAQ 교차 링크 등을 권고합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
+    {
+        "name": "create_experiment_baselines",
+        "description": (
+            "SEO 실험 베이스라인을 설정합니다 (Phase 6). "
+            "변경 전 현재 지표를 캡처하여 실험 추적의 기준점을 설정합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "top_n": {
+                    "type": "integer",
+                    "description": "실험 설정할 상위 기회 수 (기본값 5)",
+                    "default": 5,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "analyze_experiment_results",
+        "description": (
+            "SEO 실험 결과를 분석하고 학습 내용을 저장합니다 (Phase 6). "
+            "변경 전후 지표를 비교하고 성공/실패 원인을 분석합니다. "
+            "학습 내용은 Knowledge Base에 자동 저장됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
+    {
+        "name": "generate_seo_report",
+        "description": (
+            "SEO 주간 리포트를 생성합니다 (Phase 6). "
+            "Organic Search 요약, 기회 매트릭스, 기술 이슈, 콘텐츠 브리프 대기열, "
+            "실험 결과, 지식 베이스 현황, 다음 주 우선순위를 포함한 "
+            "Markdown 리포트를 생성하고 파일로 저장합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "report_date": {
+                    "type": "string",
+                    "description": "리포트 날짜 (YYYY-MM-DD). 미입력 시 오늘.",
+                },
+                "export_markdown": {
+                    "type": "boolean",
+                    "description": "Markdown 파일 저장 여부 (기본값 True)",
+                    "default": True,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "list_content_briefs",
+        "description": (
+            "생성된 콘텐츠 브리프 목록을 조회합니다 (Phase 4-6). "
+            "상태(draft/approved/in_progress/published), URL별 필터링 가능."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": ["draft", "approved", "in_progress", "published"],
+                    "description": "필터링할 상태 (미입력 시 전체)",
+                },
+                "url": {
+                    "type": "string",
+                    "description": "특정 URL 필터 (선택사항)",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "get_knowledge_items",
+        "description": (
+            "Knowledge Base 항목을 조회합니다 (Phase 6). "
+            "실험 학습, 규칙 탐지, LLM 인사이트 등 축적된 SEO 지식을 반환합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "source_type": {
+                    "type": "string",
+                    "enum": ["experiment", "rule_hit", "llm_insight", "manual"],
+                    "description": "소스 유형 필터 (선택사항)",
+                },
+                "tag": {
+                    "type": "string",
+                    "description": "태그 필터 (선택사항)",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
         "name": "get_seo_recommendations",
         "description": (
             "SEO 권고사항 목록을 조회합니다 (Phase 3). "
