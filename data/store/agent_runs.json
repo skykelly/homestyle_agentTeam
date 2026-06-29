@@ -67,5 +67,366 @@
     ],
     "error_message": null,
     "output_summary": "7개 권고사항 생성 (규칙 7건 탐지)"
+  },
+  {
+    "run_id": "443f2704-ef2",
+    "workflow_name": "seo_content_brief",
+    "trigger": "manual",
+    "input_params": {
+      "max_briefs": 3,
+      "opportunity_types": [
+        "ctr_improvement",
+        "ranking_boost"
+      ]
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:40.867640",
+    "completed_at": "2026-06-29T05:51:40.871985",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "brief_ccdc7270",
+      "brief_70b64ed4",
+      "brief_d523b4ad"
+    ],
+    "error_message": null,
+    "output_summary": "3개 콘텐츠 브리프 생성 (0개 LLM 보강)"
+  },
+  {
+    "run_id": "bac17046-9be",
+    "workflow_name": "seo_structured_data",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:40.939137",
+    "completed_at": "2026-06-29T05:51:40.941954",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "schema_c3568dc4",
+      "schema_06b91715",
+      "schema_5026d08f",
+      "schema_cfe07a22",
+      "schema_3005fd6b"
+    ],
+    "error_message": null,
+    "output_summary": "5개 구조화 데이터 권고사항 생성"
+  },
+  {
+    "run_id": "48950285-e33",
+    "workflow_name": "seo_internal_link",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:41.009725",
+    "completed_at": "2026-06-29T05:51:41.018275",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "21개 내부 링크 권고사항 생성"
+  },
+  {
+    "run_id": "3e66ce65-dff",
+    "workflow_name": "seo_experiment_baseline",
+    "trigger": "manual",
+    "input_params": {
+      "top_n": 3
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:41.087007",
+    "completed_at": "2026-06-29T05:51:41.089110",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "exp_d37e5f4b",
+      "exp_00b3f8b2",
+      "exp_6211362c"
+    ],
+    "error_message": null,
+    "output_summary": "3개 실험 베이스라인 설정"
+  },
+  {
+    "run_id": "7df4c053-80f",
+    "workflow_name": "seo_experiment_results",
+    "trigger": "manual",
+    "input_params": {
+      "mode": "simulation"
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:41.154346",
+    "completed_at": "2026-06-29T05:52:51.978661",
+    "duration_seconds": 70.82,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "3개 실험 완료, 4개 Knowledge Item 저장"
+  },
+  {
+    "run_id": "08c937cd-03a",
+    "workflow_name": "seo_content_brief",
+    "trigger": "manual",
+    "input_params": {
+      "max_briefs": 3,
+      "opportunity_types": [
+        "ctr_improvement",
+        "ranking_boost"
+      ]
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:57.062971",
+    "completed_at": "2026-06-29T05:51:57.068973",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "brief_23c8859c",
+      "brief_293a1986",
+      "brief_ef5b4447"
+    ],
+    "error_message": null,
+    "output_summary": "3개 콘텐츠 브리프 생성 (0개 LLM 보강)"
+  },
+  {
+    "run_id": "ba3d5dfc-c46",
+    "workflow_name": "seo_structured_data",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:57.134144",
+    "completed_at": "2026-06-29T05:51:57.138486",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "schema_b5873422",
+      "schema_f046c1ed",
+      "schema_0ab65f67",
+      "schema_5e8dcf6d",
+      "schema_4346245f"
+    ],
+    "error_message": null,
+    "output_summary": "5개 구조화 데이터 권고사항 생성"
+  },
+  {
+    "run_id": "1c8ab13b-e19",
+    "workflow_name": "seo_internal_link",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:57.202820",
+    "completed_at": "2026-06-29T05:51:57.219198",
+    "duration_seconds": 0.02,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "21개 내부 링크 권고사항 생성"
+  },
+  {
+    "run_id": "31238b44-cc3",
+    "workflow_name": "seo_experiment_baseline",
+    "trigger": "manual",
+    "input_params": {
+      "top_n": 3
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:57.284832",
+    "completed_at": "2026-06-29T05:51:57.287958",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "exp_066e0b99",
+      "exp_d48257c2",
+      "exp_04086998"
+    ],
+    "error_message": null,
+    "output_summary": "3개 실험 베이스라인 설정"
+  },
+  {
+    "run_id": "72d85e85-6e1",
+    "workflow_name": "seo_experiment_results",
+    "trigger": "manual",
+    "input_params": {
+      "mode": "simulation"
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:51:57.355974",
+    "completed_at": "2026-06-29T05:53:17.382253",
+    "duration_seconds": 80.03,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "3개 실험 완료, 4개 Knowledge Item 저장"
+  },
+  {
+    "run_id": "9ee3e835-7c6",
+    "workflow_name": "seo_experiment_results",
+    "trigger": "manual",
+    "input_params": {
+      "mode": "simulation"
+    },
+    "status": "running",
+    "started_at": "2026-06-29T05:52:16.429370",
+    "completed_at": null,
+    "duration_seconds": null,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": null
+  },
+  {
+    "run_id": "b34feadd-512",
+    "workflow_name": "seo_content_brief",
+    "trigger": "manual",
+    "input_params": {
+      "max_briefs": 3,
+      "opportunity_types": [
+        "ctr_improvement",
+        "ranking_boost"
+      ]
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:52:50.993101",
+    "completed_at": "2026-06-29T05:52:50.998530",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "brief_74088abb",
+      "brief_3c2e500b",
+      "brief_e1345dc3"
+    ],
+    "error_message": null,
+    "output_summary": "3개 콘텐츠 브리프 생성 (0개 LLM 보강)"
+  },
+  {
+    "run_id": "4df2eb9d-c8f",
+    "workflow_name": "seo_structured_data",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:52:51.069241",
+    "completed_at": "2026-06-29T05:52:51.074012",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "schema_c456a4ea",
+      "schema_aa9dbaea",
+      "schema_65778b8f",
+      "schema_f485dae2",
+      "schema_98d375a0"
+    ],
+    "error_message": null,
+    "output_summary": "5개 구조화 데이터 권고사항 생성"
+  },
+  {
+    "run_id": "d888bdcb-6a4",
+    "workflow_name": "seo_internal_link",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:52:51.138679",
+    "completed_at": "2026-06-29T05:52:51.160842",
+    "duration_seconds": 0.02,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "21개 내부 링크 권고사항 생성"
+  },
+  {
+    "run_id": "158c7c68-bdd",
+    "workflow_name": "seo_experiment_baseline",
+    "trigger": "manual",
+    "input_params": {
+      "top_n": 3
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:52:51.228968",
+    "completed_at": "2026-06-29T05:52:51.233015",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "exp_55304116",
+      "exp_c4ecb563",
+      "exp_0b79e86f"
+    ],
+    "error_message": null,
+    "output_summary": "3개 실험 베이스라인 설정"
+  },
+  {
+    "run_id": "346bcb96-0e0",
+    "workflow_name": "seo_experiment_results",
+    "trigger": "manual",
+    "input_params": {
+      "mode": "simulation"
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:52:51.300271",
+    "completed_at": "2026-06-29T05:52:51.305355",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "3개 실험 완료, 3개 Knowledge Item 저장"
+  },
+  {
+    "run_id": "fdcbcdda-cc7",
+    "workflow_name": "seo_reporting",
+    "trigger": "manual",
+    "input_params": {
+      "report_date": "2026-06-29",
+      "export_markdown": true
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:52:51.378353",
+    "completed_at": "2026-06-29T05:52:51.383986",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "SEO 주간 리포트 생성 완료 (2026-06-29)"
+  },
+  {
+    "run_id": "a502f44b-c6d",
+    "workflow_name": "seo_reporting",
+    "trigger": "manual",
+    "input_params": {
+      "report_date": "2026-06-29",
+      "export_markdown": true
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:52:52.045404",
+    "completed_at": "2026-06-29T05:52:52.050091",
+    "duration_seconds": 0.0,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "SEO 주간 리포트 생성 완료 (2026-06-29)"
+  },
+  {
+    "run_id": "28c6c4b7-e5f",
+    "workflow_name": "seo_reporting",
+    "trigger": "manual",
+    "input_params": {
+      "report_date": "2026-06-29",
+      "export_markdown": true
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T05:53:17.452525",
+    "completed_at": "2026-06-29T05:53:17.460943",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "SEO 주간 리포트 생성 완료 (2026-06-29)"
   }
 ]
