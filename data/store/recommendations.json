@@ -1,0 +1,386 @@
+[
+  {
+    "id": "382fa763",
+    "recommendation_type": "budget_decrease",
+    "target_platform": "naver_search",
+    "target_campaign": "뷰티랩_콜라겐세럼_전환",
+    "current_metric": {
+      "roas": 180,
+      "cpa_krw": 45000,
+      "ctr_pct": 1.2,
+      "cvr_pct": 1.8
+    },
+    "expected_impact": {
+      "roas_change_pct": 0,
+      "spend_change_pct": -20,
+      "cpa_reduction_expected": true
+    },
+    "confidence_score": 0.8,
+    "risk_level": "medium",
+    "reason": "ROAS 180%로 목표(350%) 대비 30% 이상 미달. 9일 지속.",
+    "evidence": [
+      "현재 ROAS: 180% vs 목표: 350%",
+      "괴리율: -48.6%",
+      "7일 이상 구조적 저성과"
+    ],
+    "required_approval": "none",
+    "rollback_plan": "예산을 감액 전 수준으로 복원",
+    "status": "draft",
+    "created_at": "2026-06-29T01:25:01.830007",
+    "updated_at": "2026-06-29T01:25:01.830016",
+    "approved_by": null,
+    "approved_at": null,
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "c66334b9",
+    "recommendation_type": "campaign_pause",
+    "target_platform": "naver_search",
+    "target_campaign": "뷰티랩_콜라겐세럼_전환",
+    "current_metric": {
+      "roas": 75
+    },
+    "expected_impact": {
+      "spend_saved_daily_krw": 500000
+    },
+    "confidence_score": 0.9,
+    "risk_level": "high",
+    "reason": "ROAS 75%로 손익분기점 미달. 7일 연속 손실.",
+    "evidence": [
+      "ROAS: 75% (손익분기점: 100%)",
+      "손실 7일 지속",
+      "즉각 조치 필요"
+    ],
+    "required_approval": "human",
+    "rollback_plan": "캠페인 재활성화 (입찰 전략 변경 후 재개)",
+    "status": "rolled_back",
+    "created_at": "2026-06-29T01:25:01.881595",
+    "updated_at": "2026-06-29T01:25:01.885830",
+    "approved_by": "마케팅팀장_김영수",
+    "approved_at": "2026-06-29T01:25:01.883356",
+    "rejection_reason": null,
+    "executed_at": "2026-06-29T01:25:01.885273",
+    "execution_result": {
+      "success": true,
+      "action": "campaign_paused",
+      "paused_at": "2026-06-29T01:25:01.885155"
+    },
+    "approval_notes": "데이터 확인 후 승인. 내일 오전 9시 실행 예정.",
+    "rollback_reason": "일시 중지 후 ROAS가 회복되어 재개 결정"
+  },
+  {
+    "id": "88202123",
+    "recommendation_type": "bid_adjustment",
+    "target_platform": "naver_search",
+    "target_campaign": "뷰티랩_콜라겐세럼_전환",
+    "current_metric": {
+      "budget_utilization": 0.42
+    },
+    "expected_impact": {
+      "utilization_target": 0.95
+    },
+    "confidence_score": 0.7,
+    "risk_level": "low",
+    "reason": "예산 소진율 42%로 저조. 3일 지속.",
+    "evidence": [
+      "소진율: 42% (정상: 95%)",
+      "3일 지속",
+      "노출 기회 손실"
+    ],
+    "required_approval": "none",
+    "rollback_plan": "입찰가를 조정 전 수준으로 복원",
+    "status": "approved",
+    "created_at": "2026-06-29T01:25:01.882554",
+    "updated_at": "2026-06-29T01:25:01.882877",
+    "approved_by": "system_auto",
+    "approved_at": "2026-06-29T01:25:01.882835",
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "3622fe09",
+    "recommendation_type": "landing_page_change",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_전환",
+    "current_metric": {
+      "bounce_rate_pct": 78,
+      "cvr_pct": 0.3
+    },
+    "expected_impact": {
+      "bounce_rate_reduction_pct": 20
+    },
+    "confidence_score": 0.7,
+    "risk_level": "medium",
+    "reason": "이탈률 78%로 임계값 초과. 1,200 세션 기준.",
+    "evidence": [
+      "이탈률: 78% (임계값: 70%)",
+      "1,200 세션",
+      "랜딩페이지 UX 개선 필요"
+    ],
+    "required_approval": "human",
+    "rollback_plan": "랜딩페이지를 이전 버전으로 롤백",
+    "status": "rejected",
+    "created_at": "2026-06-29T01:25:01.883958",
+    "updated_at": "2026-06-29T01:25:01.884779",
+    "approved_by": "퍼포먼스팀_이지은",
+    "approved_at": null,
+    "rejection_reason": "다음 주 리뉴얼 예정이므로 현재 변경 불필요. 리뉴얼 후 재진단 예정.",
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "addbb090",
+    "recommendation_type": "budget_decrease",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_여름프로모션",
+    "current_metric": {
+      "roas": 165,
+      "cpa_krw": 38000,
+      "ctr_pct": 0.35,
+      "cvr_pct": 0.9,
+      "budget_utilization": 0.55
+    },
+    "expected_impact": {
+      "change_pct": -20.0,
+      "rule_id": "BUDGET_002",
+      "description": "ROAS 목표 대비 30% 이상 미달 — 예산 20% 감액 권고"
+    },
+    "confidence_score": 0.8,
+    "risk_level": "medium",
+    "reason": "ROAS 165%로 목표(500%) 대비 30% 이상 미달. 12일 지속.",
+    "evidence": [
+      "현재 ROAS: 165% vs 목표: 500%",
+      "괴리율: -67.0%",
+      "7일 이상 지속 → 구조적 문제 가능성"
+    ],
+    "required_approval": "human",
+    "rollback_plan": "예산을 감액 전 수준으로 복원",
+    "status": "pending_approval",
+    "created_at": "2026-06-29T01:25:02.916594",
+    "updated_at": "2026-06-29T01:25:02.922119",
+    "approved_by": null,
+    "approved_at": null,
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "0dbae8c0",
+    "recommendation_type": "bid_adjustment",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_여름프로모션",
+    "current_metric": {
+      "roas": 165,
+      "cpa_krw": 38000,
+      "ctr_pct": 0.35,
+      "cvr_pct": 0.9,
+      "budget_utilization": 0.55
+    },
+    "expected_impact": {
+      "change_pct": null,
+      "rule_id": "BUDGET_004",
+      "description": "CPA 목표 50% 초과 — 타겟 CPA 자동입찰 전환 권고"
+    },
+    "confidence_score": 0.75,
+    "risk_level": "medium",
+    "reason": "CPA 38,000원으로 목표(18,000원) 대비 111% 초과.",
+    "evidence": [
+      "현재 CPA: 38,000원 (목표: 18,000원)",
+      "초과율: 111%",
+      "타겟 CPA 자동입찰로 전환 시 10-20% 개선 가능"
+    ],
+    "required_approval": "none",
+    "rollback_plan": "수동 입찰 복원 (기존 입찰가로 재설정)",
+    "status": "approved",
+    "created_at": "2026-06-29T01:25:02.917556",
+    "updated_at": "2026-06-29T01:25:02.922898",
+    "approved_by": "system_auto",
+    "approved_at": "2026-06-29T01:25:02.922893",
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "cc2a9cfb",
+    "recommendation_type": "bid_adjustment",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_여름프로모션",
+    "current_metric": {
+      "roas": 165,
+      "cpa_krw": 38000,
+      "ctr_pct": 0.35,
+      "cvr_pct": 0.9,
+      "budget_utilization": 0.55
+    },
+    "expected_impact": {
+      "change_pct": null,
+      "rule_id": "BUDGET_005",
+      "description": "예산 소진율 저조 — 입찰가 상향 또는 오디언스 확대 권고"
+    },
+    "confidence_score": 0.7,
+    "risk_level": "low",
+    "reason": "예산 소진율 55%로 저조. 12일째 지속.",
+    "evidence": [
+      "예산 소진율: 55% (정상: 95% 이상)",
+      "지속 기간: 12일",
+      "노출 기회 손실 발생 중"
+    ],
+    "required_approval": "none",
+    "rollback_plan": "입찰가를 조정 전 수준으로 복원",
+    "status": "approved",
+    "created_at": "2026-06-29T01:25:02.918175",
+    "updated_at": "2026-06-29T01:25:02.923639",
+    "approved_by": "system_auto",
+    "approved_at": "2026-06-29T01:25:02.923634",
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "8beba12b",
+    "recommendation_type": "creative_refresh",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_여름프로모션",
+    "current_metric": {
+      "roas": 165,
+      "cpa_krw": 38000,
+      "ctr_pct": 0.35,
+      "cvr_pct": 0.9,
+      "budget_utilization": 0.55
+    },
+    "expected_impact": {
+      "change_pct": null,
+      "rule_id": "CREATIVE_001",
+      "description": "CTR 심각 저조 — 소재 즉시 교체 권고"
+    },
+    "confidence_score": 0.85,
+    "risk_level": "medium",
+    "reason": "CTR 0.35%로 벤치마크(1.10%) 대비 67% 이상 미달. 12일 지속.",
+    "evidence": [
+      "현재 CTR: 0.35% (벤치마크: 1.10%)",
+      "미달율: 68%",
+      "12일 연속 저성과 → 소재 자체 문제"
+    ],
+    "required_approval": "none",
+    "rollback_plan": "'뷰티랩_카카오_여름프로모션_creative' 이전 소재 복원 (비활성화 취소)",
+    "status": "approved",
+    "created_at": "2026-06-29T01:25:02.918929",
+    "updated_at": "2026-06-29T01:25:02.924345",
+    "approved_by": "system_auto",
+    "approved_at": "2026-06-29T01:25:02.924340",
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "bba390b8",
+    "recommendation_type": "creative_refresh",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_여름프로모션",
+    "current_metric": {
+      "roas": 165,
+      "cpa_krw": 38000,
+      "ctr_pct": 0.35,
+      "cvr_pct": 0.9,
+      "budget_utilization": 0.55
+    },
+    "expected_impact": {
+      "change_pct": null,
+      "rule_id": "CREATIVE_002",
+      "description": "소재 피로도 감지 — 소재 교체 권고"
+    },
+    "confidence_score": 0.75,
+    "risk_level": "low",
+    "reason": "평균 노출 빈도 6.8회 (임계값: 5.0회) → 성과 저하 예상.",
+    "evidence": [
+      "소재 운영 기간: 12일",
+      "평균 노출 빈도: 6.8회",
+      "소재 수명 초과 (신규 소재로 교체 권장)"
+    ],
+    "required_approval": "none",
+    "rollback_plan": "신규 소재 성과 미달 시 기존 소재 재활성화",
+    "status": "approved",
+    "created_at": "2026-06-29T01:25:02.919676",
+    "updated_at": "2026-06-29T01:25:02.925077",
+    "approved_by": "system_auto",
+    "approved_at": "2026-06-29T01:25:02.925072",
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "17ee5b47",
+    "recommendation_type": "landing_page_change",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_여름프로모션",
+    "current_metric": {
+      "roas": 165,
+      "cpa_krw": 38000,
+      "ctr_pct": 0.35,
+      "cvr_pct": 0.9,
+      "budget_utilization": 0.55
+    },
+    "expected_impact": {
+      "change_pct": null,
+      "rule_id": "LANDING_001",
+      "description": "높은 이탈률 — 랜딩페이지 UX 개선 필요"
+    },
+    "confidence_score": 0.8,
+    "risk_level": "medium",
+    "reason": "이탈률 74%로 임계값(70%) 초과. 850 세션 기준.",
+    "evidence": [
+      "이탈률: 74% (정상 범위: 40-60%)",
+      "분석 세션: 850건 (통계적으로 유의미)",
+      "광고 메시지와 랜딩 일관성 점검 필요"
+    ],
+    "required_approval": "human",
+    "rollback_plan": "랜딩페이지를 이전 버전으로 롤백",
+    "status": "pending_approval",
+    "created_at": "2026-06-29T01:25:02.920374",
+    "updated_at": "2026-06-29T01:25:02.925777",
+    "approved_by": null,
+    "approved_at": null,
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  },
+  {
+    "id": "520aba65",
+    "recommendation_type": "landing_page_change",
+    "target_platform": "kakao_moment",
+    "target_campaign": "뷰티랩_카카오_여름프로모션",
+    "current_metric": {
+      "roas": 165,
+      "cpa_krw": 38000,
+      "ctr_pct": 0.35,
+      "cvr_pct": 0.9,
+      "budget_utilization": 0.55
+    },
+    "expected_impact": {
+      "change_pct": null,
+      "rule_id": "LANDING_002",
+      "description": "페이지 로딩 속도 저하 — 기술 최적화 필요"
+    },
+    "confidence_score": 0.9,
+    "risk_level": "medium",
+    "reason": "페이지 로딩 평균 4.2초. 모바일 전환율에 직접 영향.",
+    "evidence": [
+      "평균 로딩: 4.2초 (목표: 2초 이하)",
+      "1초 지연 시 전환율 7% 감소 (Google 데이터)",
+      "모바일 비중 78% 환경에서 치명적 영향"
+    ],
+    "required_approval": "human",
+    "rollback_plan": "이미지 압축/CDN 설정 변경 전 원복",
+    "status": "pending_approval",
+    "created_at": "2026-06-29T01:25:02.921200",
+    "updated_at": "2026-06-29T01:25:02.926492",
+    "approved_by": null,
+    "approved_at": null,
+    "rejection_reason": null,
+    "executed_at": null,
+    "execution_result": null
+  }
+]

@@ -1,0 +1,71 @@
+[
+  {
+    "run_id": "5414a9e5-fec",
+    "workflow_name": "budget_rules_demo",
+    "trigger": "manual",
+    "input_params": {
+      "platform": "naver_search",
+      "campaign": "뷰티랩_콜라겐세럼_전환"
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T01:25:01.830403",
+    "completed_at": "2026-06-29T01:25:01.880559",
+    "duration_seconds": 0.05,
+    "tool_calls": [
+      {
+        "tool": "run_all_budget_rules",
+        "input": "naver_search / ROAS=180",
+        "result_preview": "3건 탐지",
+        "timestamp": "2026-06-29T01:25:01.830411"
+      }
+    ],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "규칙 3건 탐지, 권고사항 1개 생성"
+  },
+  {
+    "run_id": "b81d6de4-2bb",
+    "workflow_name": "diagnosis",
+    "trigger": "manual",
+    "input_params": {
+      "platform": "kakao_moment",
+      "campaign": "뷰티랩_카카오_여름프로모션",
+      "category": "뷰티",
+      "metrics_keys": [
+        "roas",
+        "cpa_krw",
+        "ctr_pct",
+        "cvr_pct",
+        "budget_utilization",
+        "days_running",
+        "frequency",
+        "bounce_rate_pct",
+        "page_load_seconds",
+        "sessions"
+      ]
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T01:25:02.915883",
+    "completed_at": "2026-06-29T01:26:23.413443",
+    "duration_seconds": 80.5,
+    "tool_calls": [
+      {
+        "tool": "llm_diagnosis",
+        "input": "다음 규칙 엔진 탐지 결과를 분석하고 추가 인사이트를 제공해주세요.\n\n플랫폼: kakao_moment | 캠페인: 뷰티랩_카카오_여름프로모션 | 카테고리: 뷰티\n\n현재 지표:\n  ROAS: 165% (목표: 500%",
+        "result_preview": "",
+        "timestamp": "2026-06-29T01:25:02.927224"
+      }
+    ],
+    "recommendations_generated": [
+      "addbb090",
+      "0dbae8c0",
+      "cc2a9cfb",
+      "8beba12b",
+      "bba390b8",
+      "17ee5b47",
+      "520aba65"
+    ],
+    "error_message": null,
+    "output_summary": "7개 권고사항 생성 (규칙 7건 탐지)"
+  }
+]
