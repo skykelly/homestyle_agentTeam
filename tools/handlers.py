@@ -15,6 +15,7 @@ from data.korean_market import (
     get_upcoming_events,
     get_platform_recommendation,
 )
+from storage.repository import list_recommendations
 
 
 def _days_between(start: str, end: str) -> int:
@@ -521,6 +522,68 @@ def ab_test_analysis(
     }
 
 
+# ---------------------------------------------------------------------------
+# Phase 2: Recommendation & Approval tool handlers
+# ---------------------------------------------------------------------------
+
+def run_diagnosis(
+    platform: str,
+    campaign: str,
+    category: str,
+    metrics: dict,
+    auto_submit: bool = True,
+) -> dict:
+    from workflows.diagnosis import DiagnosisWorkflow
+    wf = DiagnosisWorkflow(verbose=False)
+    return wf.diagnose(
+        platform=platform,
+        campaign=campaign,
+        category=category,
+        metrics=metrics,
+        auto_submit=auto_submit,
+        llm_augment=False,   # Tools called from within LLM — skip nested LLM call
+    )
+
+
+def list_recommendations_handler(
+    status: str | None = None,
+    platform: str | None = None,
+    limit: int = 20,
+) -> dict:
+    recs = list_recommendations(status=status, platform=platform, limit=limit)
+    return {
+        "total": len(recs),
+        "filter": {"status": status, "platform": platform},
+        "recommendations": recs,
+    }
+
+
+def approve_recommendation(
+    recommendation_id: str,
+    approver: str,
+    notes: str = "",
+) -> dict:
+    from workflows.approval import ApprovalWorkflow
+    wf = ApprovalWorkflow()
+    return wf.approve(recommendation_id, approver, notes)
+
+
+def reject_recommendation(
+    recommendation_id: str,
+    approver: str,
+    reason: str,
+) -> dict:
+    from workflows.approval import ApprovalWorkflow
+    wf = ApprovalWorkflow()
+    return wf.reject(recommendation_id, approver, reason)
+
+
+def get_approval_summary() -> dict:
+    from workflows.approval import ApprovalWorkflow
+    wf = ApprovalWorkflow()
+    return wf.get_approval_summary()
+
+
 # Dispatch table: tool name -> handler function
 TOOL_HANDLERS = {
     "get_campaign_performance": get_campaign_performance,
@@ -532,6 +595,12 @@ TOOL_HANDLERS = {
     "create_campaign_plan": create_campaign_plan,
     "generate_performance_report": generate_performance_report,
     "ab_test_analysis": ab_test_analysis,
+    # Phase 2
+    "run_diagnosis": run_diagnosis,
+    "list_recommendations": list_recommendations_handler,
+    "approve_recommendation": approve_recommendation,
+    "reject_recommendation": reject_recommendation,
+    "get_approval_summary": get_approval_summary,
 }
 
 

@@ -335,4 +335,135 @@ TOOLS = [
             "required": ["test_name", "variant_a", "variant_b", "primary_metric"],
         },
     },
+    # ── Phase 2: Recommendation & Approval tools ────────────────────────────
+    {
+        "name": "run_diagnosis",
+        "description": (
+            "캠페인 성과 진단을 실행합니다 (Phase 2). "
+            "규칙 엔진(rule-based)으로 성과 이슈를 탐지하고 "
+            "구조화된 권고사항(Recommendation)을 자동 생성합니다. "
+            "고위험 액션은 자동으로 승인 대기(pending_approval) 상태로 전환됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "platform": {
+                    "type": "string",
+                    "description": "진단할 광고 플랫폼 (예: naver_search, kakao_moment)",
+                },
+                "campaign": {
+                    "type": "string",
+                    "description": "캠페인명 또는 ID",
+                },
+                "category": {
+                    "type": "string",
+                    "description": "상품 카테고리 (예: 뷰티, 패션, 식품)",
+                },
+                "metrics": {
+                    "type": "object",
+                    "description": (
+                        "현재 성과 지표: roas(float), cpa_krw(int), ctr_pct(float), "
+                        "cvr_pct(float), budget_utilization(0-1), days_running(int), "
+                        "frequency(float, 선택), bounce_rate_pct(float, 선택), "
+                        "page_load_seconds(float, 선택), cart_abandon_rate_pct(float, 선택)"
+                    ),
+                },
+                "auto_submit": {
+                    "type": "boolean",
+                    "description": "True이면 권고사항을 즉시 승인 워크플로우에 제출",
+                    "default": True,
+                },
+            },
+            "required": ["platform", "campaign", "category", "metrics"],
+        },
+    },
+    {
+        "name": "list_recommendations",
+        "description": (
+            "생성된 권고사항 목록을 조회합니다. "
+            "상태(draft/pending_approval/approved/rejected/executed/rolled_back)별 필터링 가능."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": ["draft", "pending_approval", "approved", "rejected", "executed", "failed", "rolled_back"],
+                    "description": "필터링할 상태 (미입력 시 전체)",
+                },
+                "platform": {
+                    "type": "string",
+                    "description": "필터링할 플랫폼 (선택사항)",
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "최대 조회 건수 (기본값 20)",
+                    "default": 20,
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "approve_recommendation",
+        "description": (
+            "승인 대기 중인 권고사항을 승인합니다 (Phase 2). "
+            "승인 후 status가 approved로 변경되어 실행 가능 상태가 됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "recommendation_id": {
+                    "type": "string",
+                    "description": "승인할 권고사항 ID",
+                },
+                "approver": {
+                    "type": "string",
+                    "description": "승인자 이름 또는 ID",
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "승인 메모 (선택사항)",
+                },
+            },
+            "required": ["recommendation_id", "approver"],
+        },
+    },
+    {
+        "name": "reject_recommendation",
+        "description": (
+            "승인 대기 중인 권고사항을 거절합니다 (Phase 2). "
+            "거절 사유와 함께 rejected 상태로 전환됩니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "recommendation_id": {
+                    "type": "string",
+                    "description": "거절할 권고사항 ID",
+                },
+                "approver": {
+                    "type": "string",
+                    "description": "거절 처리자 이름 또는 ID",
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "거절 사유 (필수)",
+                },
+            },
+            "required": ["recommendation_id", "approver", "reason"],
+        },
+    },
+    {
+        "name": "get_approval_summary",
+        "description": (
+            "전체 권고사항 승인 현황을 조회합니다 (Phase 2). "
+            "상태별 건수, 승인 대기 항목 목록, 롤백 가능 항목을 반환합니다."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+        },
+    },
 ]
