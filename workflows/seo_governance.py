@@ -203,15 +203,16 @@ class SEOGovernanceWorkflow(BaseWorkflow):
                 flags.append(f"[LLM 검토] {llm_feedback[:200]}")
 
         # Update draft in storage
-        from storage.seo_repository import _load, _save, DRAFTS_FILE
-        items = _load(DRAFTS_FILE)
-        for item in items:
-            if item.get("draft_id") == draft_id:
-                item["brand_safety_score"] = safety_score
-                item["governance_flags"] = flags
-                item["status"] = "governance_checked"
-                break
-        _save(DRAFTS_FILE, items)
+        from storage.seo_repository import _load, _save, DRAFTS_FILE, _LOCK
+        with _LOCK:
+            items = _load(DRAFTS_FILE)
+            for item in items:
+                if item.get("draft_id") == draft_id:
+                    item["brand_safety_score"] = safety_score
+                    item["governance_flags"] = flags
+                    item["status"] = "governance_checked"
+                    break
+            _save(DRAFTS_FILE, items)
 
         # Save to knowledge base if there are notable flags
         if flags:

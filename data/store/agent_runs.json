@@ -485,5 +485,126 @@
     "recommendations_generated": [],
     "error_message": null,
     "output_summary": "검수 완료: score=1.00, PASS"
+  },
+  {
+    "run_id": "df79f7aa-6f2",
+    "workflow_name": "seo_experiment_baseline",
+    "trigger": "manual",
+    "input_params": {
+      "top_n": 5
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:10:28.652066",
+    "completed_at": "2026-06-29T07:10:28.672565",
+    "duration_seconds": 0.02,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "exp_4e685368",
+      "exp_4ef7c8ee",
+      "exp_09b8ad9c",
+      "exp_ab5cbe2d",
+      "exp_8e5f9b03"
+    ],
+    "error_message": null,
+    "output_summary": "5개 실험 베이스라인 설정"
+  },
+  {
+    "run_id": "1434e3c1-31f",
+    "workflow_name": "seo_internal_link",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:10:28.656652",
+    "completed_at": "2026-06-29T07:10:28.699611",
+    "duration_seconds": 0.04,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "21개 내부 링크 권고사항 생성"
+  },
+  {
+    "run_id": "aaa6ef5d-707",
+    "workflow_name": "seo_structured_data",
+    "trigger": "manual",
+    "input_params": {
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:10:28.657705",
+    "completed_at": "2026-06-29T07:10:28.681247",
+    "duration_seconds": 0.02,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "schema_222262fa",
+      "schema_8e9155ae",
+      "schema_e63f7766",
+      "schema_4cc2d386",
+      "schema_0d96ea63"
+    ],
+    "error_message": null,
+    "output_summary": "5개 구조화 데이터 권고사항 생성"
+  },
+  {
+    "run_id": "c88d6f17-565",
+    "workflow_name": "seo_diagnosis",
+    "trigger": "manual",
+    "input_params": {
+      "site_url": "https://beautylab.co.kr",
+      "min_impressions": 3000,
+      "llm_augment": false
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:10:28.660282",
+    "completed_at": "2026-06-29T07:10:28.667443",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "SEO 진단 완료: 35건 이슈 탐지, 0개 콘텐츠 브리프 생성"
+  },
+  {
+    "run_id": "7f5d80e0-471",
+    "workflow_name": "seo_content_brief",
+    "trigger": "manual",
+    "input_params": {
+      "max_briefs": 5,
+      "opportunity_types": [
+        "ctr_improvement",
+        "ranking_boost"
+      ]
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:10:28.753899",
+    "completed_at": "2026-06-29T07:10:28.764286",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [
+      "brief_f8925f31",
+      "brief_f48881f6",
+      "brief_ee1a4f5d",
+      "brief_c6d6c110",
+      "brief_5c03cf36"
+    ],
+    "error_message": null,
+    "output_summary": "5개 콘텐츠 브리프 생성 (0개 LLM 보강)"
+  },
+  {
+    "run_id": "cb746e27-4ed",
+    "workflow_name": "seo_reporting",
+    "trigger": "manual",
+    "input_params": {
+      "report_date": "2026-06-29",
+      "export_markdown": true
+    },
+    "status": "completed",
+    "started_at": "2026-06-29T07:10:28.817192",
+    "completed_at": "2026-06-29T07:10:28.823353",
+    "duration_seconds": 0.01,
+    "tool_calls": [],
+    "recommendations_generated": [],
+    "error_message": null,
+    "output_summary": "SEO 주간 리포트 생성 완료 (2026-06-29)"
   }
 ]

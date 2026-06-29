@@ -6,6 +6,7 @@ SEOExperiment, KnowledgeItem to JSON files.
 
 import json
 import os
+import threading
 from pathlib import Path
 from typing import Optional
 
@@ -19,6 +20,8 @@ EXPERIMENTS_FILE = STORE_DIR / "seo_experiments.json"
 KNOWLEDGE_FILE = STORE_DIR / "seo_knowledge_items.json"
 RECOMMENDATIONS_FILE = STORE_DIR / "seo_recommendations.json"
 DRAFTS_FILE = STORE_DIR / "seo_content_drafts.json"
+
+_LOCK = threading.Lock()
 
 
 def _load(path: Path) -> list:
@@ -37,10 +40,11 @@ def _save(path: Path, data: list) -> None:
 # ── ContentBrief ─────────────────────────────────────────────────────────────
 
 def save_content_brief(brief) -> None:
-    items = _load(BRIEFS_FILE)
-    items = [i for i in items if i.get("brief_id") != brief.brief_id]
-    items.append(brief.to_dict())
-    _save(BRIEFS_FILE, items)
+    with _LOCK:
+        items = _load(BRIEFS_FILE)
+        items = [i for i in items if i.get("brief_id") != brief.brief_id]
+        items.append(brief.to_dict())
+        _save(BRIEFS_FILE, items)
 
 
 def list_content_briefs(status: str = "", url: str = "") -> list[dict]:
@@ -59,10 +63,11 @@ def get_content_brief(brief_id: str) -> Optional[dict]:
 # ── StructuredDataRecommendation ─────────────────────────────────────────────
 
 def save_schema_recommendation(rec) -> None:
-    items = _load(SCHEMA_RECS_FILE)
-    items = [i for i in items if i.get("rec_id") != rec.rec_id]
-    items.append(rec.to_dict())
-    _save(SCHEMA_RECS_FILE, items)
+    with _LOCK:
+        items = _load(SCHEMA_RECS_FILE)
+        items = [i for i in items if i.get("rec_id") != rec.rec_id]
+        items.append(rec.to_dict())
+        _save(SCHEMA_RECS_FILE, items)
 
 
 def list_schema_recommendations(page_type: str = "") -> list[dict]:
@@ -75,10 +80,11 @@ def list_schema_recommendations(page_type: str = "") -> list[dict]:
 # ── InternalLinkRecommendation ───────────────────────────────────────────────
 
 def save_link_recommendation(rec) -> None:
-    items = _load(LINK_RECS_FILE)
-    items = [i for i in items if i.get("rec_id") != rec.rec_id]
-    items.append(rec.to_dict())
-    _save(LINK_RECS_FILE, items)
+    with _LOCK:
+        items = _load(LINK_RECS_FILE)
+        items = [i for i in items if i.get("rec_id") != rec.rec_id]
+        items.append(rec.to_dict())
+        _save(LINK_RECS_FILE, items)
 
 
 def list_link_recommendations(priority: str = "") -> list[dict]:
@@ -91,10 +97,11 @@ def list_link_recommendations(priority: str = "") -> list[dict]:
 # ── SEOExperiment ─────────────────────────────────────────────────────────────
 
 def save_experiment(exp) -> None:
-    items = _load(EXPERIMENTS_FILE)
-    items = [i for i in items if i.get("experiment_id") != exp.experiment_id]
-    items.append(exp.to_dict())
-    _save(EXPERIMENTS_FILE, items)
+    with _LOCK:
+        items = _load(EXPERIMENTS_FILE)
+        items = [i for i in items if i.get("experiment_id") != exp.experiment_id]
+        items.append(exp.to_dict())
+        _save(EXPERIMENTS_FILE, items)
 
 
 def list_experiments(status: str = "") -> list[dict]:
@@ -111,10 +118,11 @@ def get_experiment(experiment_id: str) -> Optional[dict]:
 # ── KnowledgeItem ─────────────────────────────────────────────────────────────
 
 def save_knowledge_item(item) -> None:
-    items = _load(KNOWLEDGE_FILE)
-    items = [i for i in items if i.get("item_id") != item.item_id]
-    items.append(item.to_dict())
-    _save(KNOWLEDGE_FILE, items)
+    with _LOCK:
+        items = _load(KNOWLEDGE_FILE)
+        items = [i for i in items if i.get("item_id") != item.item_id]
+        items.append(item.to_dict())
+        _save(KNOWLEDGE_FILE, items)
 
 
 def list_knowledge_items(source_type: str = "", tag: str = "") -> list[dict]:
@@ -129,10 +137,11 @@ def list_knowledge_items(source_type: str = "", tag: str = "") -> list[dict]:
 # ── Recommendation ───────────────────────────────────────────────────────────
 
 def save_recommendation(rec) -> None:
-    items = _load(RECOMMENDATIONS_FILE)
-    items = [i for i in items if i.get("rec_id") != rec.rec_id]
-    items.append(rec.to_dict())
-    _save(RECOMMENDATIONS_FILE, items)
+    with _LOCK:
+        items = _load(RECOMMENDATIONS_FILE)
+        items = [i for i in items if i.get("rec_id") != rec.rec_id]
+        items.append(rec.to_dict())
+        _save(RECOMMENDATIONS_FILE, items)
 
 
 def list_recommendations(status: str = "", priority: str = "") -> list[dict]:
@@ -151,25 +160,27 @@ def get_recommendation(rec_id: str) -> Optional[dict]:
 def update_recommendation_status(rec_id: str, status: str, **kwargs) -> Optional[dict]:
     """Update status and optional fields (approver_notes, rejection_reason, etc.)."""
     from datetime import datetime
-    items = _load(RECOMMENDATIONS_FILE)
-    for item in items:
-        if item.get("rec_id") == rec_id:
-            item["status"] = status
-            item["updated_at"] = datetime.now().isoformat()
-            for k, v in kwargs.items():
-                item[k] = v
-            _save(RECOMMENDATIONS_FILE, items)
-            return item
+    with _LOCK:
+        items = _load(RECOMMENDATIONS_FILE)
+        for item in items:
+            if item.get("rec_id") == rec_id:
+                item["status"] = status
+                item["updated_at"] = datetime.now().isoformat()
+                for k, v in kwargs.items():
+                    item[k] = v
+                _save(RECOMMENDATIONS_FILE, items)
+                return item
     return None
 
 
 # ── ContentDraft ──────────────────────────────────────────────────────────────
 
 def save_content_draft(draft) -> None:
-    items = _load(DRAFTS_FILE)
-    items = [i for i in items if i.get("draft_id") != draft.draft_id]
-    items.append(draft.to_dict())
-    _save(DRAFTS_FILE, items)
+    with _LOCK:
+        items = _load(DRAFTS_FILE)
+        items = [i for i in items if i.get("draft_id") != draft.draft_id]
+        items.append(draft.to_dict())
+        _save(DRAFTS_FILE, items)
 
 
 def list_content_drafts(brief_id: str = "", status: str = "") -> list[dict]:

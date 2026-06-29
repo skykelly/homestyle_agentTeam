@@ -4,6 +4,7 @@ Thin wrapper — swap for SQLite or DynamoDB later without touching callers.
 """
 
 import json
+import threading
 from pathlib import Path
 from typing import Optional
 
@@ -17,11 +18,16 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 RECOMMENDATIONS_FILE = DATA_DIR / "recommendations.json"
 AGENT_RUNS_FILE = DATA_DIR / "agent_runs.json"
 
+_LOCK = threading.Lock()
+
 
 def _load(path: Path) -> list:
     if not path.exists():
         return []
-    return json.loads(path.read_text(encoding="utf-8"))
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return []
 
 
 def _save(path: Path, data: list) -> None:
@@ -33,26 +39,28 @@ def _save(path: Path, data: list) -> None:
 # ---------------------------------------------------------------------------
 
 def save_recommendation(rec: Recommendation) -> None:
-    recs = _load(RECOMMENDATIONS_FILE)
-    for i, r in enumerate(recs):
-        if r["id"] == rec.id:
-            recs[i] = rec.to_dict()
-            _save(RECOMMENDATIONS_FILE, recs)
-            return
-    recs.append(rec.to_dict())
-    _save(RECOMMENDATIONS_FILE, recs)
+    with _LOCK:
+        recs = _load(RECOMMENDATIONS_FILE)
+        for i, r in enumerate(recs):
+            if r["id"] == rec.id:
+                recs[i] = rec.to_dict()
+                _save(RECOMMENDATIONS_FILE, recs)
+                return
+        recs.append(rec.to_dict())
+        _save(RECOMMENDATIONS_FILE, recs)
 
 
 def update_recommendation_dict(data: dict) -> None:
     """Update a recommendation stored as a raw dict (used by approval state machine)."""
-    recs = _load(RECOMMENDATIONS_FILE)
-    for i, r in enumerate(recs):
-        if r["id"] == data["id"]:
-            recs[i] = data
-            _save(RECOMMENDATIONS_FILE, recs)
-            return
-    recs.append(data)
-    _save(RECOMMENDATIONS_FILE, recs)
+    with _LOCK:
+        recs = _load(RECOMMENDATIONS_FILE)
+        for i, r in enumerate(recs):
+            if r["id"] == data["id"]:
+                recs[i] = data
+                _save(RECOMMENDATIONS_FILE, recs)
+                return
+        recs.append(data)
+        _save(RECOMMENDATIONS_FILE, recs)
 
 
 def get_recommendation(rec_id: str) -> Optional[dict]:
@@ -80,14 +88,15 @@ def list_recommendations(
 # ---------------------------------------------------------------------------
 
 def save_agent_run(run: AgentRun) -> None:
-    runs = _load(AGENT_RUNS_FILE)
-    for i, r in enumerate(runs):
-        if r["run_id"] == run.run_id:
-            runs[i] = run.to_dict()
-            _save(AGENT_RUNS_FILE, runs)
-            return
-    runs.append(run.to_dict())
-    _save(AGENT_RUNS_FILE, runs)
+    with _LOCK:
+        runs = _load(AGENT_RUNS_FILE)
+        for i, r in enumerate(runs):
+            if r["run_id"] == run.run_id:
+                runs[i] = run.to_dict()
+                _save(AGENT_RUNS_FILE, runs)
+                return
+        runs.append(run.to_dict())
+        _save(AGENT_RUNS_FILE, runs)
 
 
 def get_agent_run(run_id: str) -> Optional[dict]:
