@@ -3,9 +3,26 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+_SESSION_TOKEN_FILE = "/home/claude/.claude/remote/.session_ingress_token"
+
+
+def _resolve_auth() -> tuple[str, str]:
+    """Return (api_key, auth_token) — one will be non-empty."""
+    api_key = os.getenv("ANTHROPIC_API_KEY", "")
+    if api_key:
+        return api_key, ""
+    try:
+        with open(_SESSION_TOKEN_FILE) as f:
+            token = f.read().strip()
+        return "", token
+    except OSError:
+        return "", ""
+
 
 class Settings:
-    ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
+    _api_key, _auth_token = _resolve_auth()
+    ANTHROPIC_API_KEY: str = _api_key
+    ANTHROPIC_AUTH_TOKEN: str = _auth_token
     MODEL: str = "claude-sonnet-4-6"
 
     # Korean market ad platform configs

@@ -57,7 +57,10 @@ class KoreaPerformanceMarketingAgent:
     """
 
     def __init__(self, verbose: bool = False):
-        self.client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+        if settings.ANTHROPIC_API_KEY:
+            self.client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+        else:
+            self.client = anthropic.Anthropic(auth_token=settings.ANTHROPIC_AUTH_TOKEN)
         self.verbose = verbose
         self.messages: list[dict] = []
 
